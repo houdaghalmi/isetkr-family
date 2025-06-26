@@ -1,6 +1,13 @@
 <?php
 
+use App\Http\Controllers\ClubController;
+use App\Http\Controllers\ContactMessageController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\EventParticipantController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,5 +34,13 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
+Route::middleware(['auth', 'role:admin'])->name('admin.')->group(function () {
+    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+  Route::resource('events', EventController::class);
+Route::resource('participants', EventParticipantController::class);
+Route::resource('posts', PostController::class);
+Route::resource('clubs', ClubController::class);
+Route::resource('messages', ContactMessageController::class);
+Route::resource('users', UserController::class);
+});
 require __DIR__.'/auth.php';
