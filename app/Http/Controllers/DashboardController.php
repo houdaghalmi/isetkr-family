@@ -2,9 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Club;
+use App\Models\ClubMember;
+use App\Models\ContactMessage;
+use App\Models\Event;
+use App\Models\User;
+use App\Models\Post;
 
 class DashboardController extends Controller
 {
-    //
+    public function index()
+    {
+        $stats = [
+            'clubs' => Club::count(),
+            'events' => Event::count(),
+            'users' => User::count(),
+            'posts' => Post::count(),
+            'members'=>ClubMember::count(),
+        ];
+        $recentMessages = ContactMessage::latest()
+            ->take(5)
+            ->get();
+
+        return view('admin.dashboard', compact('stats','recentMessages'));
+    }
 }
