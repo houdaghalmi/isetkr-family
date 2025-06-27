@@ -14,7 +14,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('title');
             $table->text('content');
-            $table->string('image')->nullable();
+            $table->json('images')->nullable();
             $table->timestamps();
 
             $table->foreign('club_id')->references('id')->on('clubs')->onDelete('cascade');

@@ -10,7 +10,11 @@ class Post extends Model
     use HasFactory;
 
     protected $fillable = [
-        'club_id', 'user_id', 'title', 'content', 'image'
+        'club_id', 'user_id', 'title', 'content', 'images'
+    ];
+
+    protected $casts = [
+        'images' => 'array',
     ];
 
     public function club()
