@@ -17,7 +17,7 @@ class EventController extends Controller
     {
         $events = Event::with('club')->paginate(10);
         $clubs = Club::all();
-        $responsibles = \App\Models\User::where('role', 'student')->get();
+        $responsibles = User::where('role', 'club_responsible')->orWhere('role', 'student')->get();
         return view('admin.events.index', compact('events', 'clubs', 'responsibles'));
     }
 

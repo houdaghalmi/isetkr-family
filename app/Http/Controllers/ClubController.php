@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Club;
 use App\Models\User;
 use App\Models\ClubMember;
+use App\Models\Event;
 use Illuminate\Http\Request;
 
 class ClubController extends Controller
@@ -12,8 +13,8 @@ class ClubController extends Controller
     public function index()
     {
         $clubs = Club::paginate(10);
-        $responsibles = \App\Models\User::where('role', 'student')->get();
-        $events = \App\Models\Event::all();
+        $responsibles = User::where('role', 'club_responsible')->orWhere('role', 'student')->get();
+        $events = Event::all();
         return view('admin.clubs.index', compact('clubs', 'responsibles', 'events'));
     }
 
@@ -43,6 +44,13 @@ class ClubController extends Controller
 
         $club = Club::create($data);
 
+        // Update the user's role to club_responsible
+        $responsibleUser = User::find($data['responsable_user_id']);
+        if ($responsibleUser && $responsibleUser->role !== 'club_responsible') {
+            $responsibleUser->role = 'club_responsible';
+            $responsibleUser->save();
+        }
+
         // Save the responsable as a member in club_members
         ClubMember::create([
             'club_id' => $club->id,
@@ -66,10 +74,18 @@ class ClubController extends Controller
         $request->validate([
             'name' => 'required|string',
             'description' => 'required|string',
-            'responsible_id' => 'required|exists:users,id',
+            'responsable_user_id' => 'required|exists:users,id',
         ]);
 
         $club->update($request->all());
+
+        // Update the user's role to club_responsible
+        $responsibleUser = User::find($request->input('responsable_user_id'));
+        if ($responsibleUser && $responsibleUser->role !== 'club_responsible') {
+            $responsibleUser->role = 'club_responsible';
+            $responsibleUser->save();
+        }
+
         return redirect()->route('admin.clubs.index')->with('success', 'Club updated!');
     }
 
