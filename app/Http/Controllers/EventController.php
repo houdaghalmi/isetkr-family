@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Event;
+use App\Models\Club;
+use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
 {
@@ -11,7 +15,10 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
+        $events = Event::with('club')->paginate(10);
+        $clubs = Club::all();
+        $responsibles = \App\Models\User::where('role', 'student')->get();
+        return view('admin.events.index', compact('events', 'clubs', 'responsibles'));
     }
 
     /**
@@ -19,7 +26,8 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        $clubs = Club::all();
+        return view('admin.events.create', compact('clubs'));
     }
 
     /**
@@ -27,7 +35,26 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'club_id' => 'required|exists:clubs,id',
+            'title' => 'required|string|max:255',
+            'intervenant' => 'required|string|max:255',
+            'description' => 'required|string',
+            'datetime' => 'required|date',
+            'location' => 'required|string|max:255',
+            'poster' => 'nullable|image',
+            // 'status' => 'required|in:pending,completed,canceled',
+            // 'certificated' => 'boolean',
+        ]);
+
+        if ($request->hasFile('poster')) {
+            $validated['poster'] = $request->file('poster')->store('events', 'public');
+        }
+        $validated['certificated'] = $request->has('certificated');
+        $validated['status'] = $request->input('status', 'pending');
+
+        Event::create($validated);
+        return redirect()->route('admin.events.index')->with('success', 'Event created!');
     }
 
     /**
@@ -41,24 +68,51 @@ class EventController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Event $event)
     {
-        //
+        $clubs = Club::all();
+        return view('admin.events.edit', compact('event', 'clubs'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Event $event)
     {
-        //
+        $validated = $request->validate([
+            'club_id' => 'required|exists:clubs,id',
+            'title' => 'required|string|max:255',
+            'intervenant' => 'required|string|max:255',
+            'description' => 'required|string',
+            'datetime' => 'required|date',
+            'location' => 'required|string|max:255',
+            'poster' => 'nullable|image',
+            'status' => 'required|in:pending,completed,canceled',
+            'certificated' => 'boolean',
+        ]);
+
+        if ($request->hasFile('poster')) {
+            // Delete old poster if exists
+            if ($event->poster) {
+                Storage::disk('public')->delete($event->poster);
+            }
+            $validated['poster'] = $request->file('poster')->store('events', 'public');
+        }
+        $validated['certificated'] = $request->has('certificated');
+
+        $event->update($validated);
+        return redirect()->route('admin.events.index')->with('success', 'Event updated!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Event $event)
     {
-        //
+        if ($event->poster) {
+            Storage::disk('public')->delete($event->poster);
+        }
+        $event->delete();
+        return redirect()->route('admin.events.index')->with('success', 'Event deleted!');
     }
 }

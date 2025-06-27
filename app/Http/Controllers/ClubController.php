@@ -12,7 +12,9 @@ class ClubController extends Controller
     public function index()
     {
         $clubs = Club::paginate(10);
-        return view('admin.clubs.index', compact('clubs'));
+        $responsibles = \App\Models\User::where('role', 'student')->get();
+        $events = \App\Models\Event::all();
+        return view('admin.clubs.index', compact('clubs', 'responsibles', 'events'));
     }
 
     public function create()
@@ -55,7 +57,7 @@ class ClubController extends Controller
 
     public function edit(Club $club)
     {
-        $responsibles = User::where('role', 'responsible')->get();
+        $responsibles = User::where('role', 'club_responsible')->orWhere('role', 'student')->get();
         return view('admin.clubs.edit', compact('club', 'responsibles'));
     }
 
