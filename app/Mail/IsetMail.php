@@ -31,7 +31,8 @@ class IsetMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Iset Mail',
+            subject: 'Reply to Your Contact Message - ISET Link',
+            from: config('mail.from.address', 'houda.ghalmi1@gmail.com'),
         );
     }
 
@@ -41,7 +42,7 @@ class IsetMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'admin.messages.reply',
+            view: 'emails.contact-reply', // Changed from 'admin.messages.reply'
             with: [
                 'replyMessage' => $this->replyMessage,
                 'originalMessage' => $this->originalMessage,

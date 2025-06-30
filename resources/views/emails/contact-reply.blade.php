@@ -1,83 +1,112 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reply to Your Contact Message</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .header {
-            background-color: #e5e7eb;
-            color: #333;
-            padding: 20px;
-            text-align: center;
-            border-radius: 8px 8px 0 0;
-        }
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #4F46E5;
-            margin-bottom: 8px;
-        }
-        .content {
-            background-color: #f9fafb;
-            padding: 20px;
-            border: 1px solid #e5e7eb;
-        }
-        .original-message {
-            background-color: #fff;
-            padding: 15px;
-            border-left: 4px solid #4F46E5;
-            margin: 15px 0;
-            border-radius: 4px;
-        }
-        .footer {
-            background-color: #6b7280;
-            color: white;
-            padding: 15px;
-            text-align: center;
-            border-radius: 0 0 8px 8px;
-            font-size: 12px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Réponse à votre message | ISET Link</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9fafb;
+      color: #111827;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background-color: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .header {
+      background-color: #3f51b5;
+      color: white;
+      text-align: center;
+      padding: 24px;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      margin-top: 4px;
+    }
+
+    .content {
+      padding: 24px;
+    }
+
+    .section-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #3f51b5;
+      margin-bottom: 8px;
+    }
+
+    .reply-box,
+    .original-message {
+      background-color: #f3f4f6;
+      padding: 16px;
+      border-left: 4px solid #3f51b5;
+      margin: 20px 0;
+      border-radius: 4px;
+      white-space: pre-line;
+    }
+
+    .original-message {
+      border-left-color: #5c6bc0;
+    }
+
+    .footer {
+      background-color: #3f51b5;
+      color: white;
+      text-align: center;
+      font-size: 0.85rem;
+      padding: 16px;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        margin: 20px;
+      }
+      .content, .header, .footer {
+        padding: 16px;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="container">
     <div class="header">
-        <div class="logo">ISET Link</div>
-        <h2 style="margin: 0; color: #333;">Reply to Your Contact Message</h2>
+      <div class="logo">ISET Link</div>
+      <div class="subtitle">Réponse à votre message</div>
     </div>
 
     <div class="content">
-        <p>Hello,</p>
-        
-        <p>Thank you for contacting us. We have received your message and here is our reply:</p>
-        
-        <div style="background-color: #f8f9fa; padding: 15px; border-radius: 4px; margin: 20px 0;">
-            <strong>Our Reply:</strong>
-            <p style="margin-top: 10px; white-space: pre-line;">{{ $replyMessage }}</p>
-        </div>
+      <p>Bonjour,</p>
+      <p>Merci de nous avoir contactés. Nous avons bien reçu votre message :</p>
+       <div class="original-message">
+        <div class="section-title">Votre message :</div>
+        {{ $originalMessage }}
+      </div>
+      <div >
+        {{ $replyMessage }}
+      </div>
 
-        <div class="original-message">
-            <strong>Your Original Message:</strong>
-            <p style="margin-top: 10px; white-space: pre-line;">{{ $originalMessage }}</p>
-        </div>
+     
 
-        <p style="margin-top: 20px;">If you have any further questions, please don't hesitate to contact us.</p>
-        
-        <p>Best regards,<br>
-        <strong>ISET Link Team</strong></p>
+      <p style="margin-top: 20px;">Si vous avez d'autres questions, n'hésitez pas à nous écrire de nouveau.</p>
+      <p>Cordialement,<br><strong>L'équipe ISET Link</strong></p>
     </div>
 
-    <div class="footer">
-        <p>This is an automated response from ISET Link. Please do not reply directly to this email.</p>
-        <p>&copy; {{ date('Y') }} ISET Link. All rights reserved.</p>
-    </div>
+    
+  </div>
 </body>
-</html> 
+</html>
