@@ -48,45 +48,60 @@
             </ul>
         </nav>
     </div>
-<div class="max-w-xl mx-auto py-10">
-    <div class="bg-white rounded-xl shadow p-8">
-        <h2 class="text-2xl font-bold mb-6">Edit Post</h2>
-        <form action="{{ route('admin.posts.update', $post) }}" method="POST" enctype="multipart/form-data" x-data="{ images: {{ json_encode($post->images ?? []) }} }">
-            @csrf
-            @method('PUT')
-            <div class="mb-4">
-                <label class="block text-gray-700 font-semibold mb-2">Title</label>
-                <input type="text" name="title" value="{{ old('title', $post->title) }}" class="w-full border rounded px-3 py-2" required>
+<div class="w-full bg-white p-8 rounded-lg shadow-sm">
+    <h2 class="text-xl font-bold mb-4 text-gray-800">Edit Post</h2>
+    <form action="{{ route('admin.posts.update', $post) }}" method="POST" enctype="multipart/form-data" x-data="{ images: {{ json_encode($post->images ?? []) }} }" class="space-y-4">
+        @csrf
+        @method('PUT')
+
+        <div>
+            <label class="block text-s font-medium text-gray-600 mb-1">Title</label>
+            <input type="text" name="title" value="{{ old('title', $post->title) }}" 
+                   class="w-full text-m border border-gray-300 rounded px-4 py-2 focus:ring-1 focus:ring-purple-500 focus:border-purple-500" required>
+        </div>
+
+        <div>
+            <label class="block text-s font-medium text-gray-600 mb-1">Content</label>
+            <textarea name="content" rows="3" 
+                      class="w-full text-m border border-gray-300 rounded px-3 py-1.5 focus:ring-1 focus:ring-purple-500 focus:border-purple-500" required>{{ old('content', $post->content) }}</textarea>
+        </div>
+
+        <div x-data>
+            <label class="block text-s font-medium text-gray-600 mb-1">Current Images</label>
+            <div class="flex flex-wrap gap-2 mb-2">
+                <template x-for="(img, i) in images" :key="i">
+                    <div class="relative w-20 h-20">
+                        <img :src="'/storage/' + img" class="w-20 h-20 object-cover rounded border border-gray-200">
+                        <button type="button" @click="images.splice(i, 1)" 
+                                class="absolute -top-2 -right-2 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-s">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <input type="hidden" name="keep_images[]" :value="img">
+                    </div>
+                </template>
+                <template x-if="images.length === 0">
+                    <span class="text-s text-gray-400">No images</span>
+                </template>
             </div>
-            <div class="mb-4">
-                <label class="block text-gray-700 font-semibold mb-2">Content</label>
-                <textarea name="content" class="w-full border rounded px-3 py-2" rows="4" required>{{ old('content', $post->content) }}</textarea>
-            </div>
-            <div class="mb-4" x-data>
-                <label class="block text-gray-700 font-semibold mb-2">Current Images</label>
-                <div class="flex flex-wrap gap-4 mb-2">
-                    <template x-for="(img, i) in images" :key="i">
-                        <div class="relative w-24 h-24">
-                            <img :src="'/storage/' + img" class="w-24 h-24 object-cover rounded">
-                            <button type="button" @click="images.splice(i, 1)" class="absolute top-1 right-1 bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center"><i class="fas fa-times"></i></button>
-                            <input type="hidden" name="keep_images[]" :value="img">
-                        </div>
-                    </template>
-                    <template x-if="images.length === 0">
-                        <span class="text-gray-400">No images</span>
-                    </template>
-                </div>
-            </div>
-            <div class="mb-6">
-                <label class="block text-gray-700 font-semibold mb-2">Add Images</label>
-                <input type="file" name="images[]" multiple accept="image/*" class="w-full border rounded px-3 py-2">
-            </div>
-            <div class="flex justify-end gap-2">
-                <a href="{{ route('admin.posts.index') }}" class="bg-gray-200 text-gray-700 px-6 py-2 rounded">Cancel</a>
-                <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Update Post</button>
-            </div>
-        </form>
-    </div>
+        </div>
+
+        <div>
+            <label class="block text-s font-medium text-gray-600 mb-1">Add Images</label>
+            <input type="file" name="images[]" multiple accept="image/*" 
+                   class="w-full text-s border border-gray-300 rounded file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-s file:font-medium file:bg-gray-50 file:text-gray-600 hover:file:bg-gray-100">
+        </div>
+
+        <div class="pt-3 flex justify-end border-t border-gray-100">
+            <a href="{{ route('admin.posts.index') }}" 
+               class="px-3 py-1.5 text-m font-medium text-gray-700 bg-white border border-gray-300 rounded hover:bg-gray-50 mr-2">
+                Cancel
+            </a>
+            <button type="submit" 
+                    class="px-3 py-1.5 bg-purple-600 text-white text-m font-medium rounded hover:bg-purple-700 focus:outline-none focus:ring-1 focus:ring-blue-500">
+                Update Post
+            </button>
+        </div>
+    </form>
 </div>
     </div>
 </body>

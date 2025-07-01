@@ -21,66 +21,38 @@
 <body class="bg-gray-50 font-sans">
 <div class="flex min-h-screen">
     <!-- Sidebar -->
-    <div class="w-64 bg-white border-r border-gray-200">
-        <nav class="p-4" x-data="{ open: { clubs: false, events: false, posts: false, messages: true, users: false } }">
+     <div class="w-64 bg-white border-r border-gray-200">
+        <nav class="p-4">
             <ul class="space-y-2">
                 <li>
                     <a href="{{ route('admin.dashboard') }}" class="flex items-center py-2 px-4 rounded hover:bg-gray-100">
                         <i class="fas fa-tachometer-alt mr-3"></i> Dashboard
                     </a>
                 </li>
-                <!-- Clubs -->
                 <li>
-                    <button @click="open.clubs = !open.clubs" class="w-full flex items-center justify-between py-2 px-4 rounded hover:bg-gray-100 focus:outline-none">
-                        <span class="flex items-center"><i class="fas fa-users mr-3"></i> Clubs</span>
-                        <svg :class="{'rotate-90': open.clubs}" class="w-3 h-3 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
-                    </button>
-                    <ul x-show="open.clubs" class="ml-8 mt-1 space-y-1" x-cloak>
-                        <li><a href="{{ route('admin.clubs.index') }}" class="block py-1 px-2 rounded hover:bg-blue-100">View List</a></li>
-                        <li><a href="{{ route('admin.clubs.create') }}" class="block py-1 px-2 rounded hover:bg-blue-100">Create</a></li>
-                    </ul>
+                    <a href="{{ route('admin.clubs.index') }}" class="flex items-center py-2 px-4 rounded hover:bg-gray-100">
+                        <i class="fas fa-users mr-3"></i> Clubs
+                    </a>
                 </li>
-                <!-- Events -->
                 <li>
-                    <button @click="open.events = !open.events" class="w-full flex items-center justify-between py-2 px-4 rounded hover:bg-gray-100 focus:outline-none">
-                        <span class="flex items-center"><i class="fas fa-calendar-alt mr-3"></i> Events</span>
-                        <svg :class="{'rotate-90': open.events}" class="w-3 h-3 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
-                    </button>
-                    <ul x-show="open.events" class="ml-8 mt-1 space-y-1" x-cloak>
-                        <li><a href="{{ route('admin.events.index') }}" class="block py-1 px-2 rounded hover:bg-blue-100">View List</a></li>
-                        <li><a href="{{ route('admin.events.create') }}" class="block py-1 px-2 rounded hover:bg-blue-100">Create</a></li>
-                    </ul>
+                    <a href="{{ route('admin.events.index') }}" class="flex items-center py-2 px-4 rounded hover:bg-gray-100">
+                        <i class="fas fa-calendar-alt mr-3"></i> Events
+                    </a>
                 </li>
-                <!-- Posts -->
                 <li>
-                    <button @click="open.posts = !open.posts" class="w-full flex items-center justify-between py-2 px-4 rounded hover:bg-gray-100 focus:outline-none">
-                        <span class="flex items-center"><i class="fas fa-newspaper mr-3"></i> Posts</span>
-                        <svg :class="{'rotate-90': open.posts}" class="w-3 h-3 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
-                    </button>
-                    <ul x-show="open.posts" class="ml-8 mt-1 space-y-1" x-cloak>
-                        <li><a href="{{ route('admin.posts.index') }}" class="block py-1 px-2 rounded hover:bg-blue-100">View List</a></li>
-                        <li><a href="{{ route('admin.posts.create') }}" class="block py-1 px-2 rounded hover:bg-blue-100">Create</a></li>
-                    </ul>
+                    <a href="{{ route('admin.posts.index') }}" class="flex items-center py-2 px-4 rounded hover:bg-gray-100">
+                        <i class="fas fa-newspaper mr-3"></i> Posts
+                    </a>
                 </li>
-                <!-- Messages -->
-                <li>
-                    <button @click="open.messages = !open.messages" class="w-full flex items-center justify-between py-2 px-4 rounded hover:bg-gray-100 focus:outline-none">
-                        <span class="flex items-center"><i class="fas fa-envelope mr-3"></i> Messages</span>
-                        <svg :class="{'rotate-90': open.messages}" class="w-3 h-3 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
-                    </button>
-                    <ul x-show="open.messages" class="ml-8 mt-1 space-y-1" x-cloak>
-                        <li><a href="{{ route('admin.messages.index') }}" class="block py-1 px-2 rounded hover:bg-blue-100">View List</a></li>
-                    </ul>
+                 <li>
+                    <a href="{{ route('admin.messages.index') }}" class="flex items-center py-2 px-4 rounded bg-blue-100">
+                        <i class="fas fa-envelope mr-3"></i> messages
+                    </a>
                 </li>
-                <!-- Users -->
                 <li>
-                    <button @click="open.users = !open.users" class="w-full flex items-center justify-between py-2 px-4 rounded hover:bg-gray-100 focus:outline-none">
-                        <span class="flex items-center"><i class="fas fa-user mr-3"></i> Users</span>
-                        <svg :class="{'rotate-90': open.users}" class="w-3 h-3 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
-                    </button>
-                    <ul x-show="open.users" class="ml-8 mt-1 space-y-1" x-cloak>
-                        <li><a href="{{ route('admin.users.index') }}" class="block py-1 px-2 rounded hover:bg-blue-100">View List</a></li>
-                    </ul>
+                    <a href="{{ route('admin.users.index') }}" class="flex items-center py-2 px-4 rounded hover:bg-gray-100 ">
+                        <i class="fas fa-user mr-3"></i> Users
+                    </a>
                 </li>
             </ul>
         </nav>

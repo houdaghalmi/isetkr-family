@@ -10,9 +10,11 @@
 </head>
 
 <body class="bg-gray-50 font-sans flex">
-    <!-- Sidebar -->
-    <aside class="w-64 bg-white border-r border-gray-200 h-screen sticky top-0 overflow-y-auto">
-        <nav class="p-4" x-data="{ open: { clubs: true, events: false, posts: false, messages: false, users: false }, openEventModal: false, openClubModal: false }">
+    <div class="flex min-h-screen">
+
+    <!-- Sidebar  -->
+      <aside class="w-64 bg-white border-r border-gray-200 h-screen sticky top-0 overflow-y-auto">
+        <nav class="p-4" x-data="{ open: { clubs: true, events: false, posts: false, messages: false, users: false }, openEventModal: false, openClubModal: false, openPostModal: false }">
             <ul class="space-y-2">
                 <li>
                     <a href="{{ route('admin.dashboard') }}" class="flex items-center py-2 px-4 rounded hover:bg-gray-100">
@@ -49,7 +51,7 @@
                     </button>
                     <ul x-show="open.posts" class="ml-8 mt-1 space-y-1" x-cloak>
                         <li><a href="{{ route('admin.posts.index') }}" class="block py-1 px-2 rounded hover:bg-blue-100">View List</a></li>
-                        <li><a href="{{ route('admin.posts.create') }}" class="block py-1 px-2 rounded hover:bg-blue-100">Create</a></li>
+                        <li><button type="button" @click.stop="openPostModal = true" class="block py-1 px-2 rounded hover:bg-blue-100 w-full text-left">Create</button></li>
                     </ul>
                 </li>
                 <!-- Messages -->
@@ -74,8 +76,8 @@
                 </li>
             </ul>
             <!-- Club Modal -->
-            <div x-show="openClubModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-                <div @click.away="openClubModal = false" class="bg-white rounded-xl shadow-lg p-6 w-full max-w-md relative overflow-y-auto max-h-[90vh]">
+            <div x-show="openClubModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50" style="z-index: 9999;">
+                <div @click.away="openClubModal = false" class="bg-white rounded-xl shadow-lg p-6 w-full max-w-md relative overflow-y-auto max-h-[90vh] z-50" style="z-index: 10000;">
                     <button @click="openClubModal = false" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700 text-2xl">&times;</button>
                     <h2 class="text-2xl font-bold mb-6">Create Club</h2>
                     <form action="{{ route('admin.clubs.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
@@ -119,8 +121,8 @@
                 </div>
             </div>
             <!-- Event Modal (moved here for global control) -->
-            <div x-show="openEventModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-                <div @click.away="openEventModal = false" class="bg-white rounded-xl shadow-lg p-6 w-full max-w-md relative overflow-y-auto max-h-[90vh]">
+            <div x-show="openEventModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50" style="z-index: 9999;">
+                <div @click.away="openEventModal = false" class="bg-white rounded-xl shadow-lg p-6 w-full max-w-md relative overflow-y-auto max-h-[90vh] z-50" style="z-index: 10000;">
                     <button @click="openEventModal = false" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700 text-2xl">&times;</button>
                     <h2 class="text-2xl font-bold mb-6">Créer un évènement</h2>
                     <form action="{{ route('admin.events.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
@@ -181,90 +183,198 @@
                     </form>
                 </div>
             </div>
+            <!-- Post Modal -->
+            <div x-show="openPostModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50" style="z-index: 9999;">
+                <div @click.away="openPostModal = false" class="bg-white rounded-xl shadow-lg p-6 w-full max-w-md relative overflow-y-auto max-h-[90vh] z-50" style="z-index: 10000;">
+                    <button @click="openPostModal = false" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700 text-2xl">&times;</button>
+                    <h2 class="text-2xl font-bold mb-6">Create Post</h2>
+                    <form action="{{ route('admin.posts.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+                        @csrf
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Title</label>
+                            <input type="text" name="title" class="w-full border rounded px-3 py-2" required>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Club</label>
+                            <select name="club_id" class="w-full border rounded px-3 py-2" required>
+                                <option value="">Select club</option>
+                                @foreach($clubs as $club)
+                                    <option value="{{ $club->id }}">{{ $club->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Image</label>
+                            <input type="file" name="image" accept="image/*" class="w-full border rounded px-3 py-2">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Content</label>
+                            <textarea name="content" class="w-full border rounded px-3 py-2" rows="4" required></textarea>
+                        </div>
+                        <div class="flex justify-end gap-2">
+                            <button type="button" @click="openPostModal = false" class="bg-gray-200 text-gray-700 px-6 py-2 rounded">Cancel</button>
+                            <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Create Post</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </nav>
     </aside>
+    
+    <!-- Main Content -->
     <div class="flex-1 p-8">
-        <div class="flex justify-between items-center mb-6">
-            <button class="px-4 py-2 bg-white border rounded shadow flex items-center gap-2">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-                Download PDF Report
-            </button>
+        <!-- Header Section -->
+        <div class="flex justify-between items-center mb-6 ">
+            <h1 class="text-xl font-bold text-gray-800">Total Events 
+                <span class="ml-2 px-2 py-1 rounded-full bg-purple-100 text-purple-700 text-sm font-semibold">
+                    {{ $events->total() }} events
+                </span>
+            </h1>
+                <button class="inline-flex items-center px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50">
+                    <i class="fas fa-download mr-2 text-xs"></i> Download PDF Report
+                </button>
         </div>
-        <div class="mb-4 flex items-center gap-4">
-            <span class="text-lg font-semibold">total events <span class="bg-purple-100 text-purple-700 rounded px-2 py-1 text-xs ml-1">{{ $events->total() }} events</span></span>
-            <div class="ml-auto flex gap-2">
-                <input type="text" placeholder="Search by club, event name ..." class="border rounded px-3 py-2 w-64">
-                <button class="border px-3 py-2 rounded bg-white flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 6h18M3 12h18M3 18h18"/></svg> Filter</button>
+        
+        <!-- Search and Filter Section -->
+
+            <div class="flex justify-between items-center mb-4">
+                <div class="relative w-72">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fas fa-search text-gray-400"></i>
+                    </div>
+                    <input type="text" placeholder="Search by club, event name..." 
+                           class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 sm:text-sm">
+                </div>
+                <button class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+                    <i class="fas fa-filter mr-2"></i> Filter
+                </button>
+        </div>
+        
+        <!-- Events Table -->
+        <div class="overflow-x-auto bg-white rounded-xl shadow">
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Poster</th>
+                            <th scope="col" class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Event</th>
+                            <th scope="col" class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Intervenant</th>
+                            <th scope="col" class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Certificated</th>
+                            <th scope="col" class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            <th scope="col" class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Club</th>
+                            <th scope="col" class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
+                            <th scope="col" class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                            <th scope="col" class="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-100">
+                        @forelse($events as $event)
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                @if($event->poster)
+                                    <img src="{{ asset('storage/' . $event->poster) }}" alt="Poster" class="w-12 h-12 object-cover rounded-lg">
+                                @else
+                                    <div class="w-12 h-12 rounded-lg bg-gray-100 flex items-center justify-center">
+                                        <i class="fas fa-image text-gray-400"></i>
+                                    </div>
+                                @endif
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="font-medium text-gray-900">{{ $event->title }}</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $event->intervenant }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                @if($event->certificated)
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-50 text-green-700">
+                                        <i class="fas fa-check-circle mr-1"></i> Yes
+                                    </span>
+                                @else
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-red-50 text-red-700">
+                                        <i class="fas fa-times-circle mr-1"></i> No
+                                    </span>
+                                @endif
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                @if($event->status == 'completed')
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-50 text-green-700">
+                                        <span class="h-2 w-2 rounded-full bg-green-500 mr-2"></span> Completed
+                                    </span>
+                                @elseif($event->status == 'pending')
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-yellow-50 text-yellow-700">
+                                        <span class="h-2 w-2 rounded-full bg-yellow-500 mr-2"></span> Pending
+                                    </span>
+                                @else
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-red-50 text-red-700">
+                                        <span class="h-2 w-2 rounded-full bg-red-500 mr-2"></span> Canceled
+                                    </span>
+                                @endif
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                                {{ $event->club->name ?? '-' }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                                {{ $event->location }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-gray-700 font-medium">
+                                {{ $event->datetime ? $event->datetime->format('d M Y H:i') : '-' }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-center">
+                                <div class="flex items-center justify-center space-x-2">
+                                    <a href="{{ route('admin.events.edit', $event->id) }}" 
+                                       class="text-gray-400 hover:text-blue-600 transition-colors duration-200"
+                                       title="Edit">
+                                        <i class="fas fa-pen"></i>
+                                    </a>
+                                    <form action="{{ route('admin.events.update', $event->id) }}" method="POST" class="inline">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="hidden" name="status" value="completed">
+                                        <button type="submit" 
+                                                class="text-gray-400 hover:text-green-600 transition-colors duration-200"
+                                                title="Validate">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                    </form>
+                                    <form action="{{ route('admin.events.destroy', $event->id) }}" method="POST" onsubmit="return confirm('Are you sure?');" class="inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" 
+                                                class="text-gray-400 hover:text-red-600 transition-colors duration-200"
+                                                title="Cancel">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="9" class="px-6 py-4 text-center text-gray-500">
+                                No events found.
+                            </td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="bg-white px-6 py-4 border-t border-gray-200">
+                <div class="text-sm text-gray-500">Page {{ $events->currentPage() }} of {{ $events->lastPage() }}</div>
+                <div class="space-x-2">
+                    @if($events->previousPageUrl())
+                        <a href="{{ $events->previousPageUrl() }}" class="px-3 py-1 rounded border border-gray-300 text-gray-700 bg-white hover:bg-gray-50">Previous</a>
+                    @endif
+                    @if($events->nextPageUrl())
+                        <a href="{{ $events->nextPageUrl() }}" class="px-3 py-1 rounded border border-purple-300 text-purple-700 bg-purple-50 hover:bg-purple-100">Next</a>
+                    @endif
+                </div>
+            </div>
             </div>
         </div>
-        <div class="overflow-x-auto bg-white rounded-xl shadow">
-            <table class="min-w-full text-sm">
-                <thead class="bg-gray-100">
-                    <tr>
-                        <th class="px-4 py-2 text-left">Poster</th>
-                        <th class="px-4 py-2 text-left">evenement</th>
-                        <th class="px-4 py-2 text-left">Intervenant</th>
-                        <th class="px-4 py-2 text-left">Certificated</th>
-                        <th class="px-4 py-2 text-left">Status</th>
-                        <th class="px-4 py-2 text-left">club</th>
-                        <th class="px-4 py-2 text-left">localisation</th>
-                        <th class="px-4 py-2 text-left">date</th>
-                        <th class="px-4 py-2 text-left">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($events as $event)
-                    <tr class="border-b">
-                        <td class="px-4 py-2">
-                            @if($event->poster)
-                                <img src="{{ asset('storage/' . $event->poster) }}" alt="Poster" class="w-12 h-12 object-cover rounded">
-                            @else
-                                <span class="text-gray-400">No image</span>
-                            @endif
-                        </td>
-                        <td class="px-4 py-2">{{ $event->title }}</td>
-                        <td class="px-4 py-2">{{ $event->intervenant }}</td>
-                        <td class="px-4 py-2">
-                            @if($event->certificated)
-                                <span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs">Yes</span>
-                            @else
-                                <span class="bg-red-100 text-red-700 px-2 py-1 rounded text-xs">No</span>
-                            @endif
-                        </td>
-                        <td class="px-4 py-2">
-                            <span class="px-2 py-1 rounded text-xs {{ $event->status == 'completed' ? 'bg-green-100 text-green-700' : ($event->status == 'pending' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700') }}">
-                                {{ $event->status }}
-                            </span>
-                        </td>
-                        <td class="px-4 py-2">{{ $event->club->name ?? '-' }}</td>
-                        <td class="px-4 py-2">{{ $event->location }}</td>
-                        <td class="px-4 py-2 font-semibold">{{ $event->datetime ? $event->datetime->format('d/m/Y H:i') : '-' }}</td>
-                        <td class="px-4 py-2 flex gap-2">
-                            <a href="{{ route('admin.events.edit', $event->id) }}" class="text-gray-500 hover:text-blue-600" title="Edit">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 20h9"/><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
-                            </a>
-                            <form action="{{ route('admin.events.update', $event->id) }}" method="POST" class="inline">
-                                @csrf
-                                @method('PUT')
-                                <input type="hidden" name="status" value="completed">
-                                <button type="submit" class="bg-green-500 text-white px-2 py-1 rounded text-xs">valider</button>
-                            </form>
-                            <form action="{{ route('admin.events.destroy', $event->id) }}" method="POST" onsubmit="return confirm('Are you sure?');" class="inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="bg-red-500 text-white px-2 py-1 rounded text-xs">annuler</button>
-                            </form>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr><td colspan="9" class="text-center py-4">No events found.</td></tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-        <div class="flex justify-end mt-4">
-            {{ $events->links() }}
-        </div>
+    </div>
+
+
     </div>
 </body>
 </html>

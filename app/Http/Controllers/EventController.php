@@ -71,6 +71,7 @@ class EventController extends Controller
     public function edit(Event $event)
     {
         $clubs = Club::all();
+    
         return view('admin.events.edit', compact('event', 'clubs'));
     }
 

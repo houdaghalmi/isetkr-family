@@ -58,7 +58,7 @@
                     </button>
                     <ul x-show="open.posts" class="ml-8 mt-1 space-y-1" x-cloak>
                         <li><a href="{{ route('admin.posts.index') }}" class="block py-1 px-2 rounded hover:bg-blue-100">View List</a></li>
-                        <li><a href="{{ route('admin.posts.create') }}" class="block py-1 px-2 rounded hover:bg-blue-100">Create</a></li>
+                        <li><button type="button" @click.stop="openPostModal = true" class="block py-1 px-2 rounded hover:bg-blue-100 w-full text-left">Create</button></li>
                     </ul>
                 </li>
                 <!-- Messages -->
@@ -82,6 +82,42 @@
                     </ul>
                 </li>
             </ul>
+            <!-- Post Modal -->
+            <div x-show="openPostModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+                <div @click.away="openPostModal = false" class="bg-white rounded-xl shadow-lg p-6 w-full max-w-md relative overflow-y-auto max-h-[90vh]">
+                    <button @click="openPostModal = false" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700 text-2xl">&times;</button>
+                    <h2 class="text-2xl font-bold mb-6">Create Post</h2>
+                    <form action="{{ route('admin.posts.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+                        @csrf
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Title</label>
+                            <input type="text" name="title" class="w-full border rounded px-3 py-2" required>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Club</label>
+                            <select name="club_id" class="w-full border rounded px-3 py-2" required>
+                                <option value="">Select club</option>
+                                @foreach($clubs as $club)
+                                    <option value="{{ $club->id }}">{{ $club->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Image</label>
+                            <input type="file" name="image" accept="image/*" class="w-full border rounded px-3 py-2">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Content</label>
+                            <textarea name="content" class="w-full border rounded px-3 py-2" rows="4" required></textarea>
+                        </div>
+                        <div class="flex justify-end gap-2">
+                            <button type="button" @click="openPostModal = false" class="bg-gray-200 text-gray-700 px-6 py-2 rounded">Cancel</button>
+                            <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Create Post</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
             <!-- Club Modal -->
             <div x-show="openClubModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
                 <div @click.away="openClubModal = false" class="bg-white rounded-xl shadow-lg p-6 w-full max-w-md relative overflow-y-auto max-h-[90vh]">
@@ -192,6 +228,7 @@
             </div>
         </nav>
     </div>
+
     <!-- Main Content -->
     <div class="flex-1 flex flex-col p-8">
         <!-- Top Bar -->

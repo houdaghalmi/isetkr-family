@@ -59,7 +59,7 @@
                         <svg :class="{'rotate-90': open.messages}" class="w-3 h-3 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
                     </button>
                     <ul x-show="open.messages" class="ml-8 mt-1 space-y-1" x-cloak>
-                        <li><a href="#" class="block py-1 px-2 rounded hover:bg-blue-100">View List</a></li>
+                        <li><a href="{{route('admin.messages.index')}}" class="block py-1 px-2 rounded hover:bg-blue-100">View List</a></li>
                     </ul>
                 </li>
                 <!-- Users -->
@@ -69,7 +69,7 @@
                         <svg :class="{'rotate-90': open.users}" class="w-3 h-3 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
                     </button>
                     <ul x-show="open.users" class="ml-8 mt-1 space-y-1" x-cloak>
-                        <li><a href="#" class="block py-1 px-2 rounded hover:bg-blue-100">View List</a></li>
+                        <li><a href="{{route('admin.users.index')}}" class="block py-1 px-2 rounded hover:bg-blue-100">View List</a></li>
                     </ul>
                 </li>
             </ul>
@@ -202,12 +202,12 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block text-gray-700 font-semibold mb-2">Content</label>
-                            <textarea name="content" class="w-full border rounded px-3 py-2" rows="4" required></textarea>
+                            <label class="block text-gray-700 font-semibold mb-2">Image</label>
+                            <input type="file" name="image" accept="image/*" class="w-full border rounded px-3 py-2">
                         </div>
                         <div>
-                            <label class="block text-gray-700 font-semibold mb-2">Images</label>
-                            <input type="file" name="images[]" multiple accept="image/*" class="w-full border rounded px-3 py-2">
+                            <label class="block text-gray-700 font-semibold mb-2">Content</label>
+                            <textarea name="content" class="w-full border rounded px-3 py-2" rows="4" required></textarea>
                         </div>
                         <div class="flex justify-end gap-2">
                             <button type="button" @click="openPostModal = false" class="bg-gray-200 text-gray-700 px-6 py-2 rounded">Cancel</button>
@@ -218,8 +218,8 @@
             </div>
         </nav>
     </aside>
+<!--Main content-->
     <div class="flex-1 p-8">
-      
         <div class="mb-4 flex items-center gap-4">
             <span class="text-lg font-semibold">total posts <span class="bg-purple-100 text-purple-700 rounded px-2 py-1 text-xs ml-1">{{ $posts->total() }} posts</span></span>
             <div class="ml-auto flex gap-2">
@@ -248,12 +248,12 @@
                         <td class="px-6 py-4 whitespace-nowrap">{{ $post->user ? $post->user->nom : '-' }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ $post->club ? $post->club->name : '-' }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-center">
-                            <a href="{{ route('admin.posts.show', $post) }}" class="text-blue-600 hover:text-blue-900 mr-2" title="View"><i class="fas fa-eye"></i></a>
-                            <a href="{{ route('admin.posts.edit', $post) }}" class="text-yellow-500 hover:text-yellow-700 mr-2" title="Edit"><i class="fas fa-edit"></i></a>
+                            <a href="{{ route('admin.posts.show', $post) }}" class=" text-gray-400  hover:text-blue-600 mr-2" title="View"><i class="fas fa-eye"></i></a>
+                            <a href="{{ route('admin.posts.edit', $post) }}" class="text-gray-400 hover:text-purple-600 mr-3" title="Edit"><i class="fas fa-pen"></i></a>
                             <form action="{{ route('admin.posts.destroy', $post) }}" method="POST" class="inline-block" onsubmit="return confirm('Are you sure?');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-red-600 hover:text-red-800" title="Delete"><i class="fas fa-trash-alt"></i></button>
+                                <button type="submit" class="text-gray-400 hover:text-red-500" title="Delete"><i class="fas fa-trash"></i></button>
                             </form>
                         </td>
                     </tr>
