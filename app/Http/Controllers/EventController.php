@@ -7,6 +7,7 @@ use App\Models\Event;
 use App\Models\Club;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class EventController extends Controller
 {
@@ -117,5 +118,12 @@ class EventController extends Controller
         }
         $event->delete();
         return redirect()->route('admin.events.index')->with('success', 'Event deleted!');
+    }
+
+    public function downloadPdf()
+    {
+        $events = \App\Models\Event::with('club')->get();
+        $pdf = Pdf::loadView('admin.events.pdf', compact('events'));
+        return $pdf->download('events_report.pdf');
     }
 }

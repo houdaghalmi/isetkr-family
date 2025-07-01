@@ -230,9 +230,10 @@
                     {{ $events->total() }} events
                 </span>
             </h1>
-                <button class="inline-flex items-center px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50">
+                <a href="/admin/events/pdf" target="_blank"
+                   class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50">
                     <i class="fas fa-download mr-2 text-xs"></i> Download PDF Report
-                </button>
+                </a>
         </div>
         
         <!-- Search and Filter Section -->
