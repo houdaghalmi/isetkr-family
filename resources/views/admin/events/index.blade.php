@@ -319,23 +319,18 @@
                                 {{ $event->datetime ? $event->datetime->format('d M Y H:i') : '-' }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-center">
+                               
                                 <div class="flex items-center justify-center space-x-2">
+                                     <a href="{{ route('admin.events.show', $event->id) }}" class="text-gray-400 hover:text-blue-900 mr-2" title="View">
+                                    <i class="fas fa-eye"></i>
+                                </a>
                                     <a href="{{ route('admin.events.edit', $event->id) }}" 
                                        class="text-gray-400 hover:text-blue-600 transition-colors duration-200"
                                        title="Edit">
                                         <i class="fas fa-pen"></i>
                                     </a>
-                                    <form action="{{ route('admin.events.update', $event->id) }}" method="POST" class="inline">
-                                        @csrf
-                                        @method('PUT')
-                                        <input type="hidden" name="status" value="completed">
-                                        <button type="submit" 
-                                                class="text-gray-400 hover:text-green-600 transition-colors duration-200"
-                                                title="Validate">
-                                            <i class="fas fa-check"></i>
-                                        </button>
-                                    </form>
-                                    <form action="{{ route('admin.events.destroy', $event->id) }}" method="POST" onsubmit="return confirm('Are you sure?');" class="inline">
+                        
+                                    <form action="{{ route('admin.events.destroy', $event->id) }}" method="POST" onsubmit="return confirm('Are you sure want to remove it ?');" class="inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" 

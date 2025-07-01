@@ -60,9 +60,11 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $event = Event::with('club')->findOrFail($id);
+        $participants = $event->participants()->with('user')->paginate(5);
+        return view('admin.events.show', compact('event', 'participants'));
     }
 
     /**
