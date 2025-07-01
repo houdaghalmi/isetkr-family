@@ -100,7 +100,7 @@
                             <label class="block text-gray-700 font-semibold mb-2">Responsible User</label>
                             <select name="responsable_user_id" class="w-full border rounded px-3 py-2" required>
                                 @foreach($responsibles as $user)
-                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                    <option value="{{ $user->id }}">{{ $user->nom }}</option>
                                 @endforeach
                             </select>
                         </div>

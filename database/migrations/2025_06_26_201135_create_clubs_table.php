@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('logo')->nullable();
             $table->text('description')->nullable();
             $table->text('objective')->nullable();
-            $table->unsignedBigInteger('responsable_user_id');
+            $table->unsignedBigInteger('responsable_user_id')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
 

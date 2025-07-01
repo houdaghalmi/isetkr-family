@@ -109,7 +109,7 @@
                             <label class="block text-gray-700 font-semibold mb-2">Responsible User</label>
                             <select name="responsable_user_id" class="w-full border rounded px-3 py-2" required>
                                 @foreach($responsibles as $user)
-                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                    <option value="{{ $user->id }}">{{ $user->nom }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -225,7 +225,7 @@
                                 <img src="{{ $club->logo ? asset('storage/' . $club->logo) : 'https://ui-avatars.com/api/?name=' . urlencode($club->name) . '&background=random' }}" alt="logo" class="w-8 h-8 rounded-full">
                                 <span class="font-semibold text-gray-800">{{ $club->name }}</span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $club->responsable->name ?? '-' }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $club->responsable->nom ?? '-' }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $club->events_count }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $club->members_count }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $club->created_at->format('d M Y') }}</td>

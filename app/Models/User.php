@@ -18,7 +18,9 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'nom',
+        'prenom',
+        'numero',
         'email',
         'password',
         'role',
@@ -49,7 +51,7 @@ class User extends Authenticatable
 
     public function clubs()
     {
-        return $this->hasMany(Club::class, 'responsible_user_id');
+        return $this->hasMany(Club::class, 'responsable_user_id');
     }
 
     public function clubMemberships()
