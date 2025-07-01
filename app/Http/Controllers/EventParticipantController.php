@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\Event;
 
 class EventParticipantController extends Controller
 {
@@ -60,5 +62,13 @@ class EventParticipantController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function downloadPdf($eventId)
+    {
+        $event = Event::with(['participants.user'])->findOrFail($eventId);
+        $participants = $event->participants;
+        $pdf = Pdf::loadView('admin.events.participants.pdf', compact('event', 'participants'));
+        return $pdf->download('event_participants_' . $event->id . '.pdf');
     }
 }

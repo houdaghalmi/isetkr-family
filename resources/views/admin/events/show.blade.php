@@ -152,9 +152,15 @@
             <div class="bg-white rounded-xl shadow-md overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
                     <h2 class="text-lg font-semibold text-gray-800">Participants ({{ $participants->total() }})</h2>
-                    <div class="relative">
-                        <input type="text" placeholder="Search participants..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 w-64">
-                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                    <div class="flex items-center gap-2">
+                        <a href="/events/{{ $event->id }}/participants/pdf" target="_blank"
+                           class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50">
+                            <i class="fas fa-download mr-2"></i> Download PDF
+                        </a>
+                        <div class="relative">
+                            <input type="text" placeholder="Search participants..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 w-64">
+                            <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                        </div>
                     </div>
                 </div>
                 
