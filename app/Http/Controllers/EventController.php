@@ -122,7 +122,7 @@ class EventController extends Controller
 
     public function downloadPdf()
     {
-        $events = \App\Models\Event::with('club')->get();
+        $events = Event::with('club')->get();
         $pdf = Pdf::loadView('admin.events.pdf', compact('events'));
         return $pdf->download('events_report.pdf');
     }

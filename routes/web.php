@@ -46,6 +46,8 @@ Route::post('messages/{id}/reply', [ContactMessageController::class, 'sendReply'
 Route::post('messages/{id}/mark-as-read', [ContactMessageController::class, 'markAsRead'])->name('messages.markAsRead');
 Route::resource('users', UserController::class);
 Route::get('/admin/clubs/pdf', [ClubController::class, 'downloadPdf'])->name('admin.clubs.pdf');
-Route::get('admin/events/pdf', [EventController::class, 'downloadPdf'])->name('admin.events.pdf');
+Route::get('/admin/events/pdf', [EventController::class, 'downloadPdf'])->name('admin.events.pdf');
+Route::get('/admin/users/pdf', [UserController::class, 'downloadPdf'])->name('admin.users.pdf');
+
 });
 require __DIR__.'/auth.php';

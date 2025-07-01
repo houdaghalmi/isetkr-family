@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Club;
 use App\Models\ClubMember;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -115,8 +116,10 @@ if (!$stillResponsible) {
         return redirect()->route('admin.users.index')->with('success', 'Utilisateur supprimé');
     }
 
-    public function clubs()
+    public function downloadPdf()
     {
-        return $this->belongsToMany(Club::class, 'club_members');
+        $users = \App\Models\User::all();
+        $pdf = Pdf::loadView('admin.users.pdf', compact('users'));
+        return $pdf->download('users_report.pdf');
     }
 }

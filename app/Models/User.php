@@ -82,6 +82,11 @@ public function isStudent()
     return $this->role === 'student';
 }
 
+public function joinedClubs()
+{
+    return $this->belongsToMany(Club::class, 'club_members');
+}
+
 
 
 
