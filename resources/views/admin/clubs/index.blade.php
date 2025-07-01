@@ -274,6 +274,9 @@
                                 @endif
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-center">
+                                <a href="{{ route('admin.clubs.show', $club->id) }}" class="text-gray-400 hover:text-blue-900 mr-2" title="View">
+                                    <i class="fas fa-eye"></i>
+                                </a>
                                 <a href="{{ route('admin.clubs.edit', $club) }}" class="text-gray-400 hover:text-purple-600 mr-3"><i class="fas fa-pen"></i></a>
                                 <form action="{{ route('admin.clubs.destroy', $club) }}" method="POST" class="inline">
                                     @csrf

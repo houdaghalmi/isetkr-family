@@ -73,11 +73,21 @@ class ClubController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'description' => 'required|string',
-            'responsable_user_id' => 'required|exists:users,id',
+            'description' => 'string',
+            'responsable_user_id' => 'exists:users,id',
+            'status' => 'required|in:active,inactive',
+            'logo' => 'nullable|image',
+            'objective' => 'nullable|string',
         ]);
 
-        $club->update($request->all());
+        $data = $request->only(['name', 'description', 'responsable_user_id', 'status', 'objective']);
+
+        // Handle logo upload
+        if ($request->hasFile('logo')) {
+            $data['logo'] = $request->file('logo')->store('clubs', 'public');
+        }
+
+        $club->update($data);
 
         // Update the user's role to club_responsible
         $responsibleUser = User::find($request->input('responsable_user_id'));
@@ -93,5 +103,13 @@ class ClubController extends Controller
     {
         $club->delete();
         return redirect()->route('admin.clubs.index')->with('success', 'Club deleted!');
+    }
+
+    public function show(Club $club)
+    {
+        $members = $club->members()->withPivot('function', 'joined_at')->paginate(5);
+        $events = $club->events()->paginate(5);
+        $posts = $club->posts()->with('user')->paginate(5);
+        return view('admin.clubs.show', compact('club', 'members', 'events', 'posts'));
     }
 }
