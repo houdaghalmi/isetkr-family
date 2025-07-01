@@ -7,12 +7,13 @@ use App\Models\User;
 use App\Models\ClubMember;
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ClubController extends Controller
 {
     public function index()
     {
-        $clubs = Club::paginate(10);
+        $clubs = Club::withCount(['events', 'members'])->paginate(10);
         $responsibles = User::where('role', 'club_responsible')->orWhere('role', 'student')->get();
         $events = Event::all();
         return view('admin.clubs.index', compact('clubs', 'responsibles', 'events'));
@@ -111,5 +112,13 @@ class ClubController extends Controller
         $events = $club->events()->paginate(5);
         $posts = $club->posts()->with('user')->paginate(5);
         return view('admin.clubs.show', compact('club', 'members', 'events', 'posts'));
+    }
+
+    public function downloadPdf()
+    {
+        $clubs = Club::withCount(['events', 'members'])->with('responsable')->get();
+
+        $pdf = Pdf::loadView('admin.clubs.pdf', compact('clubs'));
+        return $pdf->download('clubs_report.pdf');
     }
 }

@@ -45,5 +45,6 @@ Route::get('messages/{id}/reply', [ContactMessageController::class, 'reply'])->n
 Route::post('messages/{id}/reply', [ContactMessageController::class, 'sendReply'])->name('messages.sendReply');
 Route::post('messages/{id}/mark-as-read', [ContactMessageController::class, 'markAsRead'])->name('messages.markAsRead');
 Route::resource('users', UserController::class);
+Route::get('/admin/clubs/pdf', [ClubController::class, 'downloadPdf'])->name('admin.clubs.pdf');
 });
 require __DIR__.'/auth.php';
