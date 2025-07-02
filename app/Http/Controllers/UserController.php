@@ -69,6 +69,17 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->numero = $request->numero;
         $user->role = $request->role;
+        
+        // Handle avatar upload
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar');
+            $avatarPath = $avatar->store('avatars', 'public');
+            // Delete old avatar if exists
+            if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
+                Storage::disk('public')->delete($user->avatar);
+            }
+            $user->avatar = $avatarPath;
+        }
 
        $selectedClubIds = $request->input('clubs', []);
 
