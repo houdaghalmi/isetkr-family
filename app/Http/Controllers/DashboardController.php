@@ -8,6 +8,7 @@ use App\Models\ContactMessage;
 use App\Models\Event;
 use App\Models\User;
 use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -23,7 +24,7 @@ class DashboardController extends Controller
         $recentMessages = ContactMessage::latest()
             ->take(5)
             ->get();
-
-        return view('admin.dashboard', compact('stats','recentMessages'));
+        $user = Auth::user();
+        return view('admin.dashboard', compact('stats','recentMessages', 'user'));
     }
 }

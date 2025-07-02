@@ -110,9 +110,13 @@
                         </div>
                         <div class="relative">
                             <button id="profileDropdown" class="flex items-center space-x-2">
-                                <div class="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center text-white">
-                                    <span>AD</span>
-                                </div>
+                                @if( $user->avatar)
+                                    <img src="{{ asset('storage/' . $user->avatar) }}" alt="Avatar" class="h-8 w-8 rounded-full object-cover">
+                                @else
+                                    <div class="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center text-white">
+                                        <span>{{ strtoupper(substr($user->nom,0,1)) }}</span>
+                                    </div>
+                                @endif
                                 <i class="fas fa-chevron-down text-xs"></i>
                             </button>
                             <div id="dropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
