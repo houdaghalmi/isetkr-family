@@ -534,7 +534,7 @@
                 </div>
 
                 <form method="POST" action="/login">
-                    <input type="hidden" name="_token" value="csrf-token-here">
+                    @csrf
                     
                     <!-- Email Address -->
                     <div class="form-group">
@@ -664,28 +664,11 @@
 
         // Enhanced form submission with loading state
         form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
             const isEmailValid = validateEmail();
             const isPasswordValid = validatePassword();
             
-            if (isEmailValid && isPasswordValid) {
-                // Add loading state
-                submitBtn.classList.add('loading');
-                submitBtn.innerHTML = '';
-                
-                // Simulate API call
-                setTimeout(() => {
-                    submitBtn.classList.remove('loading');
-                    submitBtn.innerHTML = '<span>Sign In</span>';
-                    statusMessage.style.display = 'block';
-                    
-                    // Simulate redirect after 2 seconds
-                    setTimeout(() => {
-                        console.log('Form would be submitted to:', form.action);
-                        // In real implementation: form.submit();
-                    }, 2000);
-                }, 1500);
+            if (!isEmailValid || !isPasswordValid) {
+                e.preventDefault();
             }
         });
 
