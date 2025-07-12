@@ -738,9 +738,9 @@
                     <h3 class="text-xl font-bold mb-6">Quick Links</h3>
                     <ul class="space-y-4">
                         <li><a href="#" class="text-gray-300 hover:text-white transition-colors hover:translate-x-1 transform inline-block">Home</a></li>
-                        <li><a href="#events" class="text-gray-300 hover:text-white transition-colors hover:translate-x-1 transform inline-block">Events</a></li>
-                        <li><a href="#clubs" class="text-gray-300 hover:text-white transition-colors hover:translate-x-1 transform inline-block">Clubs</a></li>
-                        <li><a href="#news" class="text-gray-300 hover:text-white transition-colors hover:translate-x-1 transform inline-block">News</a></li>
+                        <li><a href="/events" class="text-gray-300 hover:text-white transition-colors hover:translate-x-1 transform inline-block">Events</a></li>
+                        <li><a href="/clubs" class="text-gray-300 hover:text-white transition-colors hover:translate-x-1 transform inline-block">Clubs</a></li>
+                        <li><a href="/posts" class="text-gray-300 hover:text-white transition-colors hover:translate-x-1 transform inline-block">posts</a></li>
                         <li><a href="#contact" class="text-gray-300 hover:text-white transition-colors hover:translate-x-1 transform inline-block">Contact</a></li>
                     </ul>
                 </div>
