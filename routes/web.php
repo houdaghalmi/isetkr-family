@@ -55,5 +55,15 @@ Route::get('/events/upcoming', [DashboardController::class, 'upcomingEvents'])->
 
 Route::middleware(['auth', 'role:student'])->name('student.')->group(function () {
 Route::get('/posts', [StudentController::class, 'postsIndex']);
+Route::get('/events', [StudentController::class, 'eventsIndex'])->name('events.index');
+// Show the participation form (GET)
+Route::get('/events/{event}/participate', [StudentController::class, 'showParticipationForm'])
+    ->name('events.participate');
+
+// Handle the participation form submission (POST)
+Route::post('/events/{event}/participate', [StudentController::class, 'participate'])
+    ->name('events.participate.submit');
+
+
 });
 require __DIR__.'/auth.php';
