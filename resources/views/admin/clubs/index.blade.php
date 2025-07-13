@@ -278,11 +278,23 @@
                                     <i class="fas fa-eye"></i>
                                 </a>
                                 <a href="{{ route('admin.clubs.edit', $club) }}" class="text-gray-400 hover:text-purple-600 mr-3"><i class="fas fa-pen"></i></a>
-                                <form action="{{ route('admin.clubs.destroy', $club) }}" method="POST" class="inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="text-gray-400 hover:text-red-600"><i class="fas fa-trash"></i></button>
-                                </form>
+                                @if(strtolower($club->status) !== 'active')
+                                    <form action="{{ route('admin.clubs.validate', $club) }}" method="POST" class="inline">
+                                        @csrf
+                                        <button type="submit" class="text-green-600 hover:text-green-800 mr-2" title="Validate"><i class="fas fa-check"></i></button>
+                                    </form>
+                                    <form action="{{ route('admin.clubs.destroy', $club) }}" method="POST" class="inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-red-600 hover:text-red-800" title="Delete"><i class="fas fa-times"></i></button>
+                                    </form>
+                                @else
+                                    <form action="{{ route('admin.clubs.destroy', $club) }}" method="POST" class="inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-gray-400 hover:text-red-600" title="Delete"><i class="fas fa-trash"></i></button>
+                                    </form>
+                                @endif
                             </td>
                         </tr>
                         @endforeach

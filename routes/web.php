@@ -37,10 +37,10 @@ Route::middleware('auth')->group(function () {
 });
 Route::middleware(['auth', 'role:admin'])->name('admin.')->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-  Route::resource('events', EventController::class);
+  Route::resource('admin/events', EventController::class);
 Route::resource('participants', EventParticipantController::class);
-Route::resource('posts', PostController::class);
-Route::resource('clubs', ClubController::class);
+Route::resource('admin/posts', PostController::class);
+Route::resource('admin/clubs', ClubController::class);
 Route::resource('messages', ContactMessageController::class);
 Route::get('messages/{id}/reply', [ContactMessageController::class, 'reply'])->name('messages.reply');
 Route::post('messages/{id}/reply', [ContactMessageController::class, 'sendReply'])->name('messages.sendReply');
@@ -51,6 +51,7 @@ Route::get('/admin/events/pdf', [EventController::class, 'downloadPdf'])->name('
 Route::get('/admin/users/pdf', [UserController::class, 'downloadPdf'])->name('admin.users.pdf');
 Route::get('/events/{event}/participants/pdf', [EventParticipantController::class, 'downloadPdf'])->name('admin.events.participants.pdf');
 Route::get('/events/upcoming', [DashboardController::class, 'upcomingEvents'])->name('events.upcoming');
+Route::post('/admin/clubs/{club}/validate', [ClubController::class, 'validateClub'])->name('clubs.validate');
 });
 
 Route::middleware(['auth', 'role:student'])->name('student.')->group(function () {
@@ -80,7 +81,7 @@ Route::get('/clubs/{club}', [StudentController::class, 'showClub'])->name('clubs
 
 Route::get('/clubs/{club}/members', [StudentController::class, 'showMembers'])->name('clubs.showMembers');
 
-Route::get('/clubs/create', [StudentController::class, 'createClub'])->name('clubs.create');
+Route::get('student/clubs/create', [StudentController::class, 'createClub'])->name('clubs.create');
 Route::post('/clubs', [StudentController::class, 'storeClub'])->name('clubs.store');
 
 

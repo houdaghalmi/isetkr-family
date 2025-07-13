@@ -114,6 +114,13 @@ class ClubController extends Controller
         return view('admin.clubs.show', compact('club', 'members', 'events', 'posts'));
     }
 
+    public function validateClub(Club $club)
+    {
+        $club->status = 'active';
+        $club->save();
+        return redirect()->route('admin.clubs.index')->with('success', 'Club validated and activated!');
+    }
+
     public function downloadPdf()
     {
         $clubs = Club::withCount(['events', 'members'])->with('responsable')->get();
