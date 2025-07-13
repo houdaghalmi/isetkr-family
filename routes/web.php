@@ -54,6 +54,8 @@ Route::get('/events/upcoming', [DashboardController::class, 'upcomingEvents'])->
 });
 
 Route::middleware(['auth', 'role:student'])->name('student.')->group(function () {
+Route::get('/student/dashboard', [StudentController::class, 'dashboard'])->name('dashboard');
+
 Route::get('/posts', [StudentController::class, 'postsIndex']);
 Route::get('/events', [StudentController::class, 'eventsIndex'])->name('events.index');
 // Show the participation form (GET)
@@ -63,6 +65,23 @@ Route::get('/events/{event}/participate', [StudentController::class, 'showPartic
 // Handle the participation form submission (POST)
 Route::post('/events/{event}/participate', [StudentController::class, 'participate'])
     ->name('events.participate.submit');
+
+Route::get('/clubs', [StudentController::class, 'clubsIndex'])->name('clubs.index');
+
+// Show the join form (GET)
+Route::get('clubs/{club}/join', [StudentController::class, 'showJoinForm'])->name('clubs.join.form');
+
+// Handle the join form submission (POST)
+Route::post('clubs/{club}/join', [StudentController::class, 'joinClubSubmit'])->name('clubs.join.submit');
+
+Route::get('clubs/{club}/leave', [StudentController::class, 'leaveClub'])->name('clubs.leave');
+
+Route::get('/clubs/{club}', [StudentController::class, 'showClub'])->name('clubs.show');
+
+Route::get('/clubs/{club}/members', [StudentController::class, 'showMembers'])->name('clubs.showMembers');
+
+Route::get('/clubs/create', [StudentController::class, 'createClub'])->name('clubs.create');
+Route::post('/clubs', [StudentController::class, 'storeClub'])->name('clubs.store');
 
 
 });

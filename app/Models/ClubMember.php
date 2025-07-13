@@ -10,7 +10,7 @@ class ClubMember extends Model
     use HasFactory;
 
     protected $fillable = [
-        'club_id', 'user_id', 'status', 'function', 'joined_at', 'left_at'
+        'club_id', 'user_id','facebook_link','instagram_link', 'status', 'function', 'joined_at', 'left_at'
     ];
 
     public function club()
