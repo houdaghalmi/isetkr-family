@@ -182,40 +182,31 @@
                                 <p class="text-sm text-gray-500 line-clamp-2">{{ $club->description }}</p>
                             </div>
                         </div>
-                        <div class="grid grid-cols-2 gap-2 text-sm text-gray-600 mb-4">
+                        <div class="flex justify-between text-center text-sm text-gray-600 mb-4">
                             <div>
-                                <span class="font-semibold text-indigo-600">{{ $club->members_count }}</span> Members
+                                <div class="font-semibold text-indigo-600 text-lg">{{ $club->members_count }}</div>
+                                <div>Members</div>
                             </div>
                             <div>
-                                <span class="font-semibold text-indigo-600">{{ $club->events_count }}</span> Events
+                                <div class="font-semibold text-indigo-600 text-lg">{{ $club->events_count }}</div>
+                                <div>Events</div>
                             </div>
-                            <div>
-                                <span class="font-semibold text-indigo-600">{{ $club->posts_count ?? 0 }}</span> Posts
-                            </div>
-                            <div>
-                                <span class="font-semibold text-indigo-600">{{ $club->objective ?? '-' }}</span>
-                            </div>
-                            <div>
-                                <span class="font-semibold text-indigo-600">
-                                    {{ $club->created_at ? \Carbon\Carbon::parse($club->created_at)->format('d/m/Y') : '-' }}
-                                </span> Created
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-3 mb-2">
-                            @if($club->facebook_link)
-                            <a href="{{ $club->facebook_link }}" target="_blank" class="text-blue-600 hover:text-blue-800">
-                                <i class="fab fa-facebook fa-lg"></i>
-                            </a>
-                            @endif
-                            @if($club->instagram_link)
-                            <a href="{{ $club->instagram_link }}" target="_blank" class="text-pink-500 hover:text-pink-700">
-                                <i class="fab fa-instagram fa-lg"></i>
-                            </a>
-                            @endif
                         </div>
                         <div class="flex items-center justify-between pt-2 border-t border-gray-200 mt-4">
                             <a href="{{ route('student.clubs.show', $club->id) }}"
                                 class="text-sm text-indigo-600 hover:text-indigo-800 font-medium transition">Show Details</a>
+                            <div class="flex items-center gap-3">
+                                @if($club->facebook_link)
+                                <a href="{{ $club->facebook_link }}" target="_blank" class="text-blue-600 hover:text-blue-800">
+                                    <i class="fab fa-facebook fa-lg"></i>
+                                </a>
+                                @endif
+                                @if($club->instagram_link)
+                                <a href="{{ $club->instagram_link }}" target="_blank" class="text-pink-500 hover:text-pink-700">
+                                    <i class="fab fa-instagram fa-lg"></i>
+                                </a>
+                                @endif
+                            </div>
                             <form method="POST" action="{{ route('student.clubs.leave', $club->id) }}">
                                 @csrf
                                 <button type="submit"
@@ -284,6 +275,7 @@
                         @endif
                     </div>
                     @endif
+
                     @empty
                     <div class="col-span-2 text-center text-gray-400">No event participation found.</div>
                     @endforelse

@@ -155,15 +155,20 @@ public function dashboard()
     // Events the user participated in
     $participatedEventIds =EventParticipant::where('user_id', $user->id)
         ->pluck('event_id');
-    $participatedEvents =Event::whereIn('id', $participatedEventIds)
-        ->with('club')
-        ->get();
+   $participatedEvents = Event::whereIn('id', $participatedEventIds)
+    ->with('club')
+    ->withCount('participants')
+    ->get();
+
+    $eventParticipationCount = EventParticipant::where('user_id', $user->id)->count();
+   
 
     return view('responsable.dashboard', compact(
         'joinedClubs',
         'responsibleClubs',
         'recentMembers',
-        'participatedEvents'
+        'participatedEvents',
+        'eventParticipationCount'
     ));
 }
 
