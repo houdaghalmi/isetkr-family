@@ -118,6 +118,14 @@ class ClubController extends Controller
     {
         $club->status = 'active';
         $club->save();
+
+        // Update the responsible user's role to 'club_responsible'
+        $responsibleUser = User::find($club->responsable_user_id);
+        if ($responsibleUser && $responsibleUser->role !== 'club_responsible') {
+            $responsibleUser->role = 'club_responsible';
+            $responsibleUser->save();
+        }
+
         return redirect()->route('admin.clubs.index')->with('success', 'Club validated and activated!');
     }
 
