@@ -22,7 +22,7 @@ class Club extends Model
     public function members()
     {
         return $this->belongsToMany(User::class, 'club_members')
-            ->withPivot('status', 'function', 'joined_at', 'left_at');
+            ->withPivot('status', 'function', 'joined_at', 'left_at','facebook_link','instagram_link');
     }
 
     public function posts()

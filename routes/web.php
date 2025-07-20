@@ -8,6 +8,7 @@ use App\Http\Controllers\EventParticipantController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ResponsibleController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -85,5 +86,27 @@ Route::get('student/clubs/create', [StudentController::class, 'createClub'])->na
 Route::post('/clubs', [StudentController::class, 'storeClub'])->name('clubs.store');
 
 
+});
+
+Route::middleware(['auth', 'role:club_responsible'])->name('responsible.')->group(function () {
+Route::get('/responsible/dashboard', [ResponsibleController::class, 'dashboard'])->name('dashboard');
+
+Route::get('responsible/clubs', [ResponsibleController::class, 'index'])->name('clubs.index');
+    Route::get('responsible/clubs/{club}', [ResponsibleController::class, 'show'])->name('clubs.show');
+    Route::get('responsible/clubs/{club}/edit', [ResponsibleController::class, 'edit'])->name('clubs.edit');
+    Route::put('/responsible/clubs/{club}', [ResponsibleController::class, 'update'])->name('clubs.update');
+
+    Route::post('clubs/{club}/members/{member}/edit', [ResponsibleController::class, 'editMember'])->name('clubs.members.edit');
+    Route::post('clubs/{club}/members/{member}/update', [ResponsibleController::class, 'updateMember'])->name('clubs.members.update');
+    Route::post('clubs/{club}/members/{member}/validate', [ResponsibleController::class, 'validateMember'])->name('clubs.members.validate');
+    Route::post('clubs/{club}/members/{member}/cancel', [ResponsibleController::class, 'cancelMember'])->name('clubs.members.cancel');
+    Route::post('clubs/{club}/members/{member}/switch', [ResponsibleController::class, 'switchStatus'])->name('clubs.members.switch');
+    Route::delete('/responsible/clubs/{club}/members/{member}', [ResponsibleController::class, 'destroyMember'])->name('clubs.members.destroy');
+    Route::get('responsible/clubs/{club}/members/pdf', [ResponsibleController::class, 'downloadMembersPdf'])->name('clubs.members.pdf');
+
+
+
+
+    
 });
 require __DIR__.'/auth.php';
