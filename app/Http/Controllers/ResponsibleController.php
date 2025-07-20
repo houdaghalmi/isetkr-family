@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Club;
 use App\Models\ClubMember;
+use App\Models\Event;
+use App\Models\EventParticipant;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf; // Make sure you have this at the top
@@ -123,5 +125,47 @@ public function downloadMembersPdf($clubId)
     $pdf = Pdf::loadView('responsable.clubs.members.pdf', compact('club', 'members'));
     return $pdf->download('club_members_' . $club->id . '.pdf');
 }
+
+public function dashboard()
+{
+    $user = auth()->user();
+
+    // Clubs the user joined
+    $joinedClubIds =ClubMember::where('user_id', $user->id)
+        ->where('status', 'accepted')
+        ->pluck('club_id');
+    $joinedClubs = Club::whereIn('id', $joinedClubIds)
+        ->withCount('members')
+        ->withCount('events')
+        ->withCount('posts')
+        ->paginate(9);
+
+    // Clubs the user is responsible for
+    $responsibleClubs = Club::where('responsable_user_id', $user->id)
+        ->withCount('members')
+        ->get();
+
+    // Recent members only in clubs you manage
+    $recentMembers = ClubMember::whereIn('club_id', $responsibleClubs->pluck('id'))
+        ->with(['user', 'club'])
+        ->orderBy('joined_at', 'desc')
+        ->take(5)
+        ->get();
+
+    // Events the user participated in
+    $participatedEventIds =EventParticipant::where('user_id', $user->id)
+        ->pluck('event_id');
+    $participatedEvents =Event::whereIn('id', $participatedEventIds)
+        ->with('club')
+        ->get();
+
+    return view('responsable.dashboard', compact(
+        'joinedClubs',
+        'responsibleClubs',
+        'recentMembers',
+        'participatedEvents'
+    ));
+}
+
 
 }

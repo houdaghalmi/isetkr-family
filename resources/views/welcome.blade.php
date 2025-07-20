@@ -372,11 +372,14 @@
                         </a>
 
                         <!-- Join Now Button -->
-                        <a href="/register"
-                            class="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 rounded-full text-lg font-semibold shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center">
-                            <i class="fas fa-user-plus mr-2"></i>
-                            Join Now
-                        </a>
+                       <a href="{{ auth()->check() ? (auth()->user()->role === 'club_responsible' ? route('responsible.dashboard') : route('student.dashboard')) : route('login') }}"
+   class="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 rounded-full text-lg font-semibold shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center">
+    <i class="fas fa-user-plus mr-2"></i>
+    Join Now
+</a>
+
+
+
                     </div>
 
                 </div>

@@ -55,10 +55,10 @@ Route::get('/events/upcoming', [DashboardController::class, 'upcomingEvents'])->
 Route::post('/admin/clubs/{club}/validate', [ClubController::class, 'validateClub'])->name('clubs.validate');
 });
 
-Route::middleware(['auth', 'role:student'])->name('student.')->group(function () {
+Route::middleware(['auth', 'role:student,club_responsible'])->name('student.')->group(function () {
 Route::get('/student/dashboard', [StudentController::class, 'dashboard'])->name('dashboard');
 
-Route::get('/posts', [StudentController::class, 'postsIndex']);
+Route::get('/posts', [StudentController::class, 'postsIndex'])->name('posts.index');
 Route::get('/events', [StudentController::class, 'eventsIndex'])->name('events.index');
 // Show the participation form (GET)
 Route::get('/events/{event}/participate', [StudentController::class, 'showParticipationForm'])

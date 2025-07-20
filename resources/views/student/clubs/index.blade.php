@@ -9,7 +9,11 @@
 </head>
 
 <body class="bg-gray-50 text-gray-900">
+@if(auth()->user()->role === 'club_responsible')
+    @include('components.responsible-topbar')
+@else
     @include('components.topbar')
+@endif
     <div class="max-w-6xl mx-auto px-4 py-8">
         <div class="text-center mb-10">
             <h1 class="text-xl text-purple-700 font-semibold mb-2">Our Clubs at ISET Kairouan</h1>

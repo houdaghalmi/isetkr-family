@@ -34,7 +34,11 @@
     </style>
 </head>
 <body class="bg-white">
+@if(auth()->user()->role === 'club_responsible')
+    @include('components.responsible-topbar')
+@else
     @include('components.topbar')
+@endif
 
     <div class="max-w-6xl mx-auto px-4 py-16">
         <div class="text-center mb-12">

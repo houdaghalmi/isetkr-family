@@ -9,7 +9,11 @@
     <script src="//unpkg.com/alpinejs" defer></script>
 </head>
 <body class="bg-gray-50 text-gray-900">
+@if(auth()->user()->role === 'club_responsible')
+    @include('components.responsible-topbar')
+@else
     @include('components.topbar')
+@endif
     <div class="max-w-6xl mx-auto px-4 py-8">
         <!-- Header -->
         <div class="text-center mb-10">
