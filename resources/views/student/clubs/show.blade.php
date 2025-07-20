@@ -21,13 +21,6 @@
                 <i class="fas fa-users mr-2 text-sm"></i>
                 View All Members
             </a>
-            <form method="POST" action="{{ route('student.clubs.leave', $club->id) }}" class="inline-block">
-                @csrf
-                <button type="submit" class="bg-red-100 text-red-700 px-6 py-2 rounded-lg font-semibold hover:bg-red-200 transition">Leave Club</button>
-            </form>
-            @else
-            <div class="mb-4 text-gray-500">When you join us, you’re not just joining a club you’re joining a passion, and a family.</div>
-            <a href="{{ route('student.clubs.join.form', $club->id) }}" class="bg-purple-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-purple-700 transition">Join our club</a>
             @endif
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">

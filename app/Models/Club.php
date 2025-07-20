@@ -10,7 +10,7 @@ class Club extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'logo', 'description', 'objective', 
+        'name', 'logo', 'facebook_link','instagram_link', 'description', 'objective', 
         'responsable_user_id', 'status'
     ];
 
