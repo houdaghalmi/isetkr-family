@@ -104,8 +104,20 @@ Route::get('responsible/clubs', [ResponsibleController::class, 'index'])->name('
     Route::delete('/responsible/clubs/{club}/members/{member}', [ResponsibleController::class, 'destroyMember'])->name('clubs.members.destroy');
     Route::get('responsible/clubs/{club}/members/pdf', [ResponsibleController::class, 'downloadMembersPdf'])->name('clubs.members.pdf');
 
-
-
+    // Events routes
+    Route::get('responsible/events', [ResponsibleController::class, 'eventsIndex'])->name('events.index');
+    Route::get('responsible/events/create', [ResponsibleController::class, 'createEvent'])->name('events.create');
+    Route::post('responsible/events', [ResponsibleController::class, 'storeEvent'])->name('events.store');
+    Route::get('responsible/events/{event}', [ResponsibleController::class, 'showEvent'])->name('events.show');
+    Route::get('responsible/events/{event}/edit', [ResponsibleController::class, 'editEvent'])->name('events.edit');
+    Route::put('responsible/events/{event}', [ResponsibleController::class, 'updateEvent'])->name('events.update');
+    Route::patch('responsible/events/{event}/cancel', [ResponsibleController::class, 'cancelEvent'])->name('events.cancel');
+    
+    // Event Participants Management
+    Route::get('responsible/events/{event}/participants', [ResponsibleController::class, 'participantsIndex'])->name('events.participants.index');
+    Route::put('responsible/events/{event}/participants/{participant}', [ResponsibleController::class, 'updateParticipant'])->name('events.participants.update');
+    Route::delete('responsible/events/{event}/participants/{participant}', [ResponsibleController::class, 'destroyParticipant'])->name('events.participants.destroy');
+    Route::get('responsible/events/{event}/participants/pdf', [ResponsibleController::class, 'downloadParticipantsPdf'])->name('events.participants.pdf');
 
     
 });

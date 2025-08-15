@@ -34,7 +34,7 @@ class AuthenticatedSessionController extends Controller
             return redirect()->intended('/admin/dashboard');
         } 
          if ($user->role === 'club_responsible') {
-            return redirect()->intended('/responsable/dashboard');
+            return redirect()->intended('/responsible/dashboard');
         } 
            if ($user->role === 'student') {
             return redirect()->intended('/student/dashboard');

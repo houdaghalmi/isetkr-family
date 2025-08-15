@@ -9,6 +9,7 @@ use App\Models\Event;
 use App\Models\EventParticipant;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf; // Make sure you have this at the top
 
 class ResponsibleController extends Controller
@@ -173,4 +174,243 @@ public function dashboard()
 }
 
 
+    // Events Management Methods
+
+    // Show list of events
+    public function eventsIndex()
+    {
+        $user = Auth::user();
+
+        // Get events for clubs where the user is responsible, excluding canceled events
+        $events = Event::whereHas('club', function($query) use ($user) {
+                $query->where('responsable_user_id', $user->id);
+            })
+            ->where('status', '!=', 'canceled')
+            ->with(['club', 'participants'])
+            ->orderBy('datetime', 'desc')
+            ->paginate(12);
+
+        return view('responsable.events.index', compact('events'));
+    }
+
+    // Show create event form
+    public function createEvent()
+    {
+        $user = Auth::user();
+        $clubs = Club::where('responsable_user_id', $user->id)->get();
+
+        return view('responsable.events.create', compact('clubs'));
+    }
+
+    // Store new event
+    public function storeEvent(Request $request)
+    {
+        $user = Auth::user();
+
+        $validated = $request->validate([
+            'club_id' => 'required|exists:clubs,id',
+            'title' => 'required|string|max:255',
+            'intervenant' => 'required|string|max:255',
+            'description' => 'required|string',
+            'datetime' => 'required|date',
+            'location' => 'required|string|max:255',
+            'poster' => 'nullable|image|max:2048',
+        ]);
+
+        // Verify that the club belongs to the user
+        $club = Club::where('id', $validated['club_id'])
+            ->where('responsable_user_id', $user->id)
+            ->firstOrFail();
+
+        if ($request->hasFile('poster')) {
+            $validated['poster'] = $request->file('poster')->store('events', 'public');
+        }
+
+        Event::create($validated);
+
+        return redirect()->route('responsible.events.index')->with('success', 'Event created successfully!');
+    }
+
+    // Show edit event form
+    public function editEvent($id)
+    {
+        $user = Auth::user();
+
+        $event = Event::whereHas('club', function($query) use ($user) {
+                $query->where('responsable_user_id', $user->id);
+            })
+            ->findOrFail($id);
+
+        $clubs = Club::where('responsable_user_id', $user->id)->get();
+
+        return view('responsable.events.edit', compact('event', 'clubs'));
+    }
+
+    // Update event
+    public function updateEvent(Request $request, $id)
+    {
+        $user = Auth::user();
+
+        $event = Event::whereHas('club', function($query) use ($user) {
+                $query->where('responsable_user_id', $user->id);
+            })
+            ->findOrFail($id);
+
+        $validated = $request->validate([
+            'club_id' => 'required|exists:clubs,id',
+            'title' => 'required|string|max:255',
+            'intervenant' => 'required|string|max:255',
+            'description' => 'required|string',
+            'datetime' => 'required|date',
+            'location' => 'required|string|max:255',
+            'poster' => 'nullable|image|max:2048',
+            'status' => 'required|in:pending,completed,canceled',
+            'certificated' => 'boolean',
+        ]);
+
+        // Verify that the club belongs to the user
+        $club = Club::where('id', $validated['club_id'])
+            ->where('responsable_user_id', $user->id)
+            ->firstOrFail();
+
+        if ($request->hasFile('poster')) {
+            // Delete old poster if exists
+            if ($event->poster) {
+                Storage::disk('public')->delete($event->poster);
+            }
+            $validated['poster'] = $request->file('poster')->store('events', 'public');
+        }
+
+        $validated['certificated'] = $request->has('certificated');
+
+        $event->update($validated);
+
+        return redirect()->route('responsible.events.index')->with('success', 'Event updated successfully!');
+    }
+
+    // Cancel event
+    public function cancelEvent($id)
+    {
+        $user = Auth::user();
+
+        $event = Event::whereHas('club', function($query) use ($user) {
+                $query->where('responsable_user_id', $user->id);
+            })
+            ->findOrFail($id);
+
+        // Check if event is already completed
+        if ($event->status === 'completed') {
+            return back()->with('error', 'Cannot cancel an event that has already been completed.');
+        }
+
+        // Check if event date has passed
+        if ($event->datetime < now()) {
+            return back()->with('error', 'Cannot cancel an event whose date has already passed.');
+        }
+
+        $event->update(['status' => 'canceled']);
+
+        return back()->with('success', 'Event canceled successfully!');
+    }
+
+        // Show event details
+    public function showEvent($id)
+    {
+        $user = Auth::user();
+        
+        $event = Event::whereHas('club', function($query) use ($user) {
+                $query->where('responsable_user_id', $user->id);
+            })
+            ->with(['club', 'participants.user'])
+            ->findOrFail($id);
+        
+        return view('responsable.events.show', compact('event'));
+    }
+
+    // Show participants index for an event
+    public function participantsIndex($eventId)
+    {
+        $user = Auth::user();
+        
+        $event = Event::whereHas('club', function($query) use ($user) {
+                $query->where('responsable_user_id', $user->id);
+            })
+            ->findOrFail($eventId);
+        
+        $participants = $event->participants()
+            ->with('user')
+            ->orderBy('created_at', 'desc')
+            ->paginate(15);
+        
+        return view('responsable.events.participation.index', compact('event', 'participants'));
+    }
+
+    // Update participant information
+    public function updateParticipant(Request $request, $eventId, $participantId)
+    {
+        $user = Auth::user();
+        
+        // Verify the event belongs to the user's club
+        $event = Event::whereHas('club', function($query) use ($user) {
+                $query->where('responsable_user_id', $user->id);
+            })
+            ->findOrFail($eventId);
+        
+        // Verify the participant belongs to this event
+        $participant = EventParticipant::where('event_id', $eventId)
+            ->where('id', $participantId)
+            ->firstOrFail();
+        
+        $validated = $request->validate([
+            'classe' => 'required|string|max:10',
+            'participation_status' => 'required|in:registered,attended,absent',
+        ]);
+        
+        $participant->update($validated);
+        
+        return back()->with('success', 'Participant information updated successfully!');
+    }
+
+    // Remove participant from event
+    public function destroyParticipant($eventId, $participantId)
+    {
+        $user = Auth::user();
+        
+        // Verify the event belongs to the user's club
+        $event = Event::whereHas('club', function($query) use ($user) {
+                $query->where('responsable_user_id', $user->id);
+            })
+            ->findOrFail($eventId);
+        
+        // Verify the participant belongs to this event
+        $participant = EventParticipant::where('event_id', $eventId)
+            ->where('id', $participantId)
+            ->firstOrFail();
+        
+        $participant->delete();
+        
+        return back()->with('success', 'Participant removed from event successfully!');
+    }
+
+    // Download participants list as PDF, filtered by status: attended, registered, absent
+    public function downloadParticipantsPdf($eventId)
+    {
+        $user = Auth::user();
+
+        $event = Event::whereHas('club', function($query) use ($user) {
+                $query->where('responsable_user_id', $user->id);
+            })
+            ->with(['club', 'participants.user'])
+            ->findOrFail($eventId);
+
+        // Get participants and order by status: attended, registered, absent
+        $participants = $event->participants()
+            ->with('user')
+            ->orderByRaw("FIELD(participation_status, 'attended', 'registered', 'absent')")
+            ->get();
+
+        $pdf = PDF::loadView('responsable.events.participation.pdf', compact('event', 'participants'));
+
+        return $pdf->download('event_participants_' . $event->title . '_' . now()->format('Y-m-d') . '.pdf');
+    }
 }

@@ -36,7 +36,7 @@
                         class="flex items-center gap-3 text-gray-700 font-medium px-3 py-2 rounded-lg hover:bg-purple-50 hover:text-purple-700 transition">
                         <i class="fas fa-calendar-alt w-5 text-#2d3480"></i> Events
                     </a>
-                    <a href="{{ route('responsible.dashboard') }}#events"
+                    <a href="{{ route('responsible.events.index') }}"
                         class="flex items-center gap-3 text-gray-700 font-medium px-3 py-2 rounded-lg hover:bg-purple-50 hover:text-purple-700 transition">
                         <i class="fas fa-tasks w-5 text-#2d3480"></i> Manage Events
                     </a>
