@@ -9,11 +9,8 @@
                  <a href="{{ route('student.clubs.index') }}" class="text-gray-700 hover:text-purple-700 font-semibold transition">Clubs</a>
                 <a href="{{ route('responsible.clubs.index') }}" class="text-gray-700 hover:text-purple-700 font-semibold transition">My Clubs</a>
 
-                <a href="{{ route('student.events.index') }}" class="text-gray-700 hover:text-purple-700 font-semibold transition">Events</a>
-                <a href="" class="text-gray-700 hover:text-purple-700 font-semibold transition">My Events</a>
-
-                <a href="{{ route('student.posts.index') }}" class="text-gray-700 hover:text-purple-700 font-semibold transition">Posts</a>
-                <a href="" class="text-gray-700 hover:text-purple-700 font-semibold transition">My Posts</a>
+                <a href="{{ route('responsible.events.index') }}" class="text-gray-700 hover:text-purple-700 font-semibold transition">My Events</a>
+                <a href="{{ route('responsible.posts.index') }}" class="text-gray-700 hover:text-purple-700 font-semibold transition">My Posts</a>
                 
             </div>
         </div>

@@ -118,6 +118,14 @@ Route::get('responsible/clubs', [ResponsibleController::class, 'index'])->name('
     Route::put('responsible/events/{event}/participants/{participant}', [ResponsibleController::class, 'updateParticipant'])->name('events.participants.update');
     Route::delete('responsible/events/{event}/participants/{participant}', [ResponsibleController::class, 'destroyParticipant'])->name('events.participants.destroy');
     Route::get('responsible/events/{event}/participants/pdf', [ResponsibleController::class, 'downloadParticipantsPdf'])->name('events.participants.pdf');
+    
+    // Posts Management
+    Route::get('responsible/posts', [ResponsibleController::class, 'postsIndex'])->name('posts.index');
+    Route::get('responsible/posts/create', [ResponsibleController::class, 'createPost'])->name('posts.create');
+    Route::post('responsible/posts', [ResponsibleController::class, 'storePost'])->name('posts.store');
+    Route::get('responsible/posts/{post}/edit', [ResponsibleController::class, 'editPost'])->name('posts.edit');
+    Route::put('responsible/posts/{post}', [ResponsibleController::class, 'updatePost'])->name('posts.update');
+    Route::delete('responsible/posts/{post}', [ResponsibleController::class, 'destroyPost'])->name('posts.destroy');
 
     
 });

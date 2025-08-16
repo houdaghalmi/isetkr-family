@@ -7,6 +7,7 @@ use App\Models\Club;
 use App\Models\ClubMember;
 use App\Models\Event;
 use App\Models\EventParticipant;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -412,5 +413,156 @@ public function dashboard()
         $pdf = PDF::loadView('responsable.events.participation.pdf', compact('event', 'participants'));
 
         return $pdf->download('event_participants_' . $event->title . '_' . now()->format('Y-m-d') . '.pdf');
+    }
+
+    // Posts Management Methods
+
+    // Show posts index
+    public function postsIndex()
+    {
+        $user = Auth::user();
+        
+        // Get posts for clubs where the user is responsible
+        $posts = Post::whereHas('club', function($query) use ($user) {
+                $query->where('responsable_user_id', $user->id);
+            })
+            ->with(['club'])
+            ->orderBy('created_at', 'desc')
+            ->paginate(12);
+        
+        return view('responsable.posts.index', compact('posts'));
+    }
+
+    // Show create post form
+    public function createPost()
+    {
+        $user = Auth::user();
+        $clubs = Club::where('responsable_user_id', $user->id)->get();
+        
+        return view('responsable.posts.create', compact('clubs'));
+    }
+
+    // Store new post
+    public function storePost(Request $request)
+    {
+        $user = Auth::user();
+        
+        $validated = $request->validate([
+            'club_id' => 'required|exists:clubs,id',
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240', // 10MB max
+        ]);
+
+        // Verify that the club belongs to the user
+        $club = Club::where('id', $validated['club_id'])
+            ->where('responsable_user_id', $user->id)
+            ->firstOrFail();
+
+        // Handle image uploads
+        $imagePaths = [];
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('posts', 'public');
+                $imagePaths[] = $path;
+            }
+        }
+
+        // Create post with images
+        $post = Post::create([
+            'club_id' => $validated['club_id'],
+            'user_id' => $user->id,
+            'title' => $validated['title'],
+            'content' => $validated['content'],
+            'images' => $imagePaths,
+        ]);
+        
+        return redirect()->route('responsible.posts.index')->with('success', 'Post created successfully!');
+    }
+
+    // Show edit post form
+    public function editPost($id)
+    {
+        $user = Auth::user();
+        
+        $post = Post::whereHas('club', function($query) use ($user) {
+                $query->where('responsable_user_id', $user->id);
+            })
+            ->findOrFail($id);
+        
+        $clubs = Club::where('responsable_user_id', $user->id)->get();
+        
+        return view('responsable.posts.edit', compact('post', 'clubs'));
+    }
+
+    // Update post
+    public function updatePost(Request $request, $id)
+    {
+        $user = Auth::user();
+        
+        $post = Post::whereHas('club', function($query) use ($user) {
+                $query->where('responsable_user_id', $user->id);
+            })
+            ->findOrFail($id);
+
+        $validated = $request->validate([
+            'club_id' => 'required|exists:clubs,id',
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'current_images.*' => 'nullable|string',
+            'new_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240', // 10MB max
+        ]);
+
+        // Verify that the club belongs to the user
+        $club = Club::where('id', $validated['club_id'])
+            ->where('responsable_user_id', $user->id)
+            ->firstOrFail();
+
+        // Handle current images
+        $currentImages = $request->input('current_images', []);
+        
+        // Handle new image uploads
+        $newImagePaths = [];
+        if ($request->hasFile('new_images')) {
+            foreach ($request->file('new_images') as $image) {
+                $path = $image->store('posts', 'public');
+                $newImagePaths[] = $path;
+            }
+        }
+
+        // Combine current and new images
+        $allImages = array_merge($currentImages, $newImagePaths);
+
+        // Update post
+        $post->update([
+            'club_id' => $validated['club_id'],
+            'title' => $validated['title'],
+            'content' => $validated['content'],
+            'images' => $allImages,
+        ]);
+        
+        return redirect()->route('responsible.posts.index')->with('success', 'Post updated successfully!');
+    }
+
+    // Delete post
+    public function destroyPost($id)
+    {
+        $user = Auth::user();
+        
+        $post = Post::whereHas('club', function($query) use ($user) {
+                $query->where('responsable_user_id', $user->id);
+            })
+            ->findOrFail($id);
+
+        // Delete associated images from storage
+        if ($post->images) {
+            foreach ($post->images as $image) {
+                Storage::disk('public')->delete($image);
+            }
+        }
+
+        $post->delete();
+        
+        return redirect()->route('responsible.posts.index')->with('success', 'Post deleted successfully!');
     }
 }
