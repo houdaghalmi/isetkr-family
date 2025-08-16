@@ -316,14 +316,18 @@
                     <a href="#" class="nav-link text-gray-700 hover:text-blue-600 font-medium">Home</a>
                     <a href="#events" class="nav-link text-gray-700 hover:text-blue-600 font-medium">Events</a>
                     <a href="#clubs" class="nav-link text-gray-700 hover:text-blue-600 font-medium">Clubs</a>
-                    <a href="#news" class="nav-link text-gray-700 hover:text-blue-600 font-medium">News</a>
+                    <a href="#news" class="nav-link text-gray-700 hover:text-blue-600 font-medium">Posts</a>
                     <a href="#contact" class="nav-link text-gray-700 hover:text-blue-600 font-medium">Contact</a>
                 </div>
 
                 <!-- Auth Buttons -->
                 <div class="flex items-center space-x-4">
+                    @auth
+                    <a href="{{ auth()->user()->role === 'admin' ? route('admin.dashboard') : (auth()->user()->role === 'club_responsible' ? route('responsible.dashboard') : route('student.dashboard')) }}" class="btn-primary text-white px-6 py-2 rounded-full font-medium">Dashboard</a>
+                    @else
                     <a href="/login" class="text-gray-700 hover:text-blue-600 font-medium transition-colors hidden md:block">Login</a>
                     <a href="/register" class="hidden md:block btn-primary text-white px-6 py-2 rounded-full font-medium">Register</a>
+                    @endauth
 
                     <!-- Mobile menu button -->
                     <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none p-2 rounded-lg hover:bg-gray-100">
@@ -341,8 +345,12 @@
                     <a href="#news" class="text-gray-700 hover:text-blue-600 font-medium transition-colors py-2">News</a>
                     <a href="#contact" class="text-gray-700 hover:text-blue-600 font-medium transition-colors py-2">Contact</a>
                     <div class="border-t border-gray-200 pt-4 flex flex-col space-y-3">
+                        @auth
+                        <a href="{{ auth()->user()->role === 'admin' ? route('admin.dashboard') : (auth()->user()->role === 'club_responsible' ? route('responsible.dashboard') : route('student.dashboard')) }}" class="btn-primary text-white px-6 py-3 rounded-full font-medium text-center">Dashboard</a>
+                        @else
                         <a href="/login" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Login</a>
                         <a href="/register" class="btn-primary text-white px-6 py-3 rounded-full font-medium text-center">Register</a>
+                        @endauth
                     </div>
                 </div>
             </div>
@@ -361,7 +369,7 @@
                     </h1>
 
                     <p class="text-xl lg:text-2xl mb-8 opacity-90 leading-relaxed">
-                         join student clubs, take part in unforgettable events, and craft stories worth remembering from your student life.e.
+                        join student clubs, take part in unforgettable events, and craft stories worth remembering from your student life.e.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 mt-6">
                         <!-- Explore Events Button -->
@@ -372,11 +380,11 @@
                         </a>
 
                         <!-- Join Now Button -->
-                       <a href="{{ auth()->check() ? (auth()->user()->role === 'club_responsible' ? route('responsible.dashboard') : route('student.dashboard')) : route('login') }}"
-   class="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 rounded-full text-lg font-semibold shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center">
-    <i class="fas fa-user-plus mr-2"></i>
-    Join Now
-</a>
+                        <a href="{{ auth()->check() ? (auth()->user()->role === 'admin' ? route('admin.dashboard') : (auth()->user()->role === 'club_responsible' ? route('responsible.dashboard') : route('student.dashboard'))) : route('login') }}"
+                            class="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 rounded-full text-lg font-semibold shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center">
+                            <i class="fas fa-user-plus mr-2"></i>
+                            {{ auth()->check() ? 'Go to Dashboard' : 'Join Now' }}
+                        </a>
 
 
 
@@ -439,7 +447,7 @@
                     <i class="fas fa-calendar-alt text-blue-600 mr-4 text-3xl"></i>
                     Upcoming Events
                 </h2>
-                <a href="#" class="text-blue-600 hover:text-blue-800 font-semibold flex items-center text-lg group">
+                <a href="{{ route('student.events.index') }}" class="text-blue-600 hover:text-blue-800 font-semibold flex items-center text-lg group">
                     View All
                     <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                 </a>
@@ -488,10 +496,7 @@
                                 <span class="text-sm font-medium">{{ $event->location }}</span>
                             </div>
 
-                            <a href="#" class="text-blue-600 hover:text-blue-800 font-semibold flex items-center group">
-                                Details
-                                <i class="fas fa-chevron-right ml-1 text-sm group-hover:translate-x-1 transition-transform"></i>
-                            </a>
+
                         </div>
                     </div>
                 </div>
@@ -506,7 +511,7 @@
                     <i class="fas fa-users text-blue-600 mr-4 text-3xl"></i>
                     Student Clubs
                 </h2>
-                <a href="#" class="text-blue-600 hover:text-blue-800 font-semibold flex items-center text-lg group">
+                <a href="{{ route('student.clubs.index') }}" class="text-blue-600 hover:text-blue-800 font-semibold flex items-center text-lg group">
                     View All
                     <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                 </a>
@@ -526,7 +531,7 @@
                     <h3 class="text-lg font-bold text-gray-800 mb-3">{{ $club->name }}</h3>
                     <p class="text-gray-600 text-sm mb-4 line-clamp-2">{{ $club->description }}</p>
 
-                    <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-semibold group">
+                    <a href="{{ route('student.clubs.show', $club->id) }}" class="text-blue-600 hover:text-blue-800 text-sm font-semibold group">
                         View Details
                         <i class="fas fa-chevron-right ml-1 text-xs group-hover:translate-x-1 transition-transform"></i>
                     </a>
@@ -536,69 +541,70 @@
         </section>
 
         <!-- Recent Posts Section -->
-        <section id="news" class="mb-20">
-            <div class="flex justify-between items-center mb-12">
-                <h2 class="section-title text-4xl font-bold text-gray-800 flex items-center">
-                    <i class="fas fa-newspaper text-blue-600 mr-4 text-3xl"></i>
-                    Campus News
-                </h2>
-                <a href="#" class="text-blue-600 hover:text-blue-800 font-semibold flex items-center text-lg group">
-                    View All
-                    <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
-                </a>
+   <section id="news" class="mb-20">
+    <div class="flex justify-between items-center mb-12">
+        <h2 class="section-title text-4xl font-bold text-gray-800 flex items-center">
+            <i class="fas fa-newspaper text-blue-600 mr-4 text-3xl"></i>
+            The Campus Lens
+        </h2>
+        <a href="{{ route('student.posts.index') }}" class="text-blue-600 hover:text-blue-800 font-semibold flex items-center text-lg group">
+            View All
+            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+        </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        @foreach($posts as $post)
+        <div class="news-card">
+            @if(is_array($post->images) && count($post->images) > 0)
+            <div x-data="carousel({{ count($post->images) }})" x-init="init($el)"
+                 class="relative h-56 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden rounded-lg">
+                 
+                @foreach($post->images as $index => $image)
+                <img x-show="active === {{ $index }}"
+                     src="{{ asset('storage/' . $image) }}"
+                     alt="Post image"
+                     class="absolute inset-0 w-full h-full object-cover transition-all duration-500"
+                     :class="{ 'opacity-100 scale-100': active === {{ $index }}, 'opacity-0 scale-105': active !== {{ $index }} }">
+                @endforeach
+
+                <!-- Indicator Dots -->
+                @if(count($post->images) > 1)
+                <div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
+                    @foreach($post->images as $index => $image)
+                    <span
+                        class="w-3 h-3 rounded-full transition-all duration-300"
+                        :class="active === {{ $index }} ? 'bg-white scale-110' : 'bg-white bg-opacity-50'">
+                    </span>
+                    @endforeach
+                </div>
+                @endif
             </div>
+            @endif
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                @foreach($posts as $post)
-                <div class="news-card">
-                    @if(is_array($post->images) && count($post->images) > 0)
-                    <div x-data="{ active: 0 }" class="relative h-56 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
-                        @foreach($post->images as $index => $image)
-                        <img x-show="active === {{ $index }}"
-                            src="{{ asset('storage/' . $image) }}"
-                            alt="Post image"
-                            class="absolute inset-0 w-full h-full object-cover transition-all duration-500"
-                            :class="{ 'opacity-100 scale-100': active === {{ $index }}, 'opacity-0 scale-105': active !== {{ $index }} }">
-                        @endforeach
-
-                        @if(count($post->images) > 1)
-                        <div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
-                            @foreach($post->images as $index => $image)
-                            <button @click="active = {{ $index }}"
-                                class="w-3 h-3 rounded-full transition-all duration-300"
-                                :class="{ 'bg-white scale-110': active === {{ $index }}, 'bg-white bg-opacity-50': active !== {{ $index }} }">
-                            </button>
-                            @endforeach
-                        </div>
-                        @endif
-                    </div>
+            <div class="p-6">
+                <div class="flex items-center mb-4">
+                    @if($post->club && $post->club->logo)
+                    <img src="{{ asset('storage/' . $post->club->logo) }}"
+                         alt="Club logo"
+                         class="w-10 h-10 rounded-full mr-3 border-2 border-gray-100">
                     @endif
-
-                    <div class="p-6">
-                        <div class="flex items-center mb-4">
-                            @if($post->club && $post->club->logo)
-                            <img src="{{ asset('storage/' . $post->club->logo) }}"
-                                alt="Club logo"
-                                class="w-10 h-10 rounded-full mr-3 border-2 border-gray-100">
-                            @endif
-                            <div>
-                                <p class="text-sm font-semibold text-gray-800">{{ $post->club->name ?? 'ISET Kairouan' }}</p>
-                                <p class="text-xs text-gray-500">{{ $post->created_at->format('d M Y') }}</p>
-                            </div>
-                        </div>
-
-                        <h3 class="text-xl font-bold text-gray-800 mb-3 leading-tight">{{ $post->title }}</h3>
-                        <p class="text-gray-600 mb-6 line-clamp-2 leading-relaxed">{{ $post->content }}</p>
-
-                        <a href="#" class="text-blue-600 hover:text-blue-800 font-semibold flex items-center group">
-                            Read more
-                            <i class="fas fa-chevron-right ml-1 text-sm group-hover:translate-x-1 transition-transform"></i>
-                        </a>
+                    <div>
+                        <p class="text-sm font-semibold text-gray-800">{{ $post->club->name ?? 'ISET Kairouan' }}</p>
+                        <p class="text-xs text-gray-500">{{ $post->created_at->format('d M Y') }}</p>
                     </div>
                 </div>
-                @endforeach
+
+                <h3 class="text-xl font-bold text-gray-800 mb-3 leading-tight">{{ $post->title }}</h3>
+                <p class="text-gray-600 mb-6 line-clamp-2 leading-relaxed">{{ $post->content }}</p>
             </div>
-        </section>
+        </div>
+        @endforeach
+    </div>
+</section>
+
+
+
 
         <!-- Calendar Section -->
         <section class="mb-20">
@@ -792,9 +798,9 @@
         });
 
         // Assign PHP variables to JS variables
-        const calendarEvents = @json($calendarEvents);
-        const nextEvent = @json($nextEvent);
-        const nextEventTime = @json(optional($nextEvent)?->datetime);
+        const calendarEvents = {!! json_encode($calendarEvents) !!};
+        const nextEvent = {!! json_encode($nextEvent) !!};
+        const nextEventTime = {!! json_encode(optional($nextEvent)->datetime) !!};
 
         // FullCalendar with Modal
         document.addEventListener('DOMContentLoaded', function() {
@@ -956,6 +962,35 @@
                 }
             });
         });
+
+        function carousel(total) {
+            return {
+                active: 0,
+                total: total,
+                interval: null,
+                init(el) {
+                    this.startAuto();
+                    // Stop auto when user manually clicks prev/next
+                    el.addEventListener('mouseenter', () => clearInterval(this.interval));
+                    el.addEventListener('mouseleave', () => this.startAuto());
+                },
+                startAuto() {
+                    clearInterval(this.interval);
+                    this.interval = setInterval(() => {
+                        this.next();
+                    }, 5000); // 5s per slide
+                },
+                next() {
+                    this.active = (this.active + 1) % this.total;
+                },
+                prev() {
+                    this.active = (this.active - 1 + this.total) % this.total;
+                },
+                goTo(index) {
+                    this.active = index;
+                }
+            }
+        }
     </script>
 </body>
 

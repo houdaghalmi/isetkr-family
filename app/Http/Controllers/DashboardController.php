@@ -30,7 +30,7 @@ class DashboardController extends Controller
 
     public function upcomingEvents()
     {
-        $events = \App\Models\Event::where('datetime', '>=', now())
+        $events = Event::where('datetime', '>=', now())
             ->where('datetime', '<=', now()->addDays(30))
             ->orderBy('datetime')
             ->get(['id', 'title', 'datetime', 'location']);

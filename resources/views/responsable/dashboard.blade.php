@@ -20,9 +20,9 @@
                 </div>
                 <!-- Navigation -->
                 <nav class="mt-8 space-y-1 px-4">
-                    <a href="{{ route('responsible.dashboard') }}"
+                    <a href="/"
                         class="flex items-center gap-3 text-gray-700 font-medium px-3 py-2 rounded-lg hover:bg-purple-50 hover:text-purple-700 transition">
-                        <i class="fas fa-home w-5 text-#2d3480"></i> Dashboard
+                        <i class="fas fa-home w-5 text-#2d3480"></i> Home
                     </a>
                     <a href="{{ route('student.clubs.index') }}"
                         class="flex items-center gap-3 text-gray-700 font-medium px-3 py-2 rounded-lg hover:bg-purple-50 hover:text-purple-700 transition">
@@ -44,7 +44,7 @@
                         class="flex items-center gap-3 text-gray-700 font-medium px-3 py-2 rounded-lg hover:bg-purple-50 hover:text-purple-700 transition">
                         <i class="fas fa-file-alt w-5 text-#2d3480"></i> Posts
                     </a>
-                    <a href="{{ route('responsible.dashboard') }}#events"
+                    <a href="{{ route('responsible.posts.index') }}"
                         class="flex items-center gap-3 text-gray-700 font-medium px-3 py-2 rounded-lg hover:bg-purple-50 hover:text-purple-700 transition">
                         <i class="fas fa-edit w-5 text-#2d3480"></i> Manage Posts
                     </a>

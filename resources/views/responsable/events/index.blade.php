@@ -17,10 +17,7 @@
         <div class="flex justify-between items-center mb-10">
             <div class="flex items-center gap-4">
                 <h1 class="text-2xl font-bold text-purple-800">My Events</h1>
-                <a href="{{ route('responsible.posts.index') }}" 
-                   class="text-purple-600 hover:text-purple-700 px-4 py-2 border border-purple-200 rounded-lg transition">
-                    <i class="fas fa-newspaper mr-2"></i>Manage Posts
-                </a>
+             
             </div>
             <a href="{{ route('responsible.events.create') }}" 
                class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition">
