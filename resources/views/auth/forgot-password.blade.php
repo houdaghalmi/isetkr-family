@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ISETLink - Forgot Password</title>
+  <title>ISETKR Family - Forgot Password</title>
   <style>
     /* Réutilisation des styles de login/register */
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -184,7 +184,7 @@
     <div class="main-container">
         <!-- Left Panel -->
         <div class="left-panel">
-            <div class="logo" style="color: #2d3480;">ISETLink</div>
+            <div class="logo" style="color: #2d3480;">ISETKR Family</div>
             <div class="welcome-content">
                 <h1>Reset Password</h1>
                 <div class="divider"></div>

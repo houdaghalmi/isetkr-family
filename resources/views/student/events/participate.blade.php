@@ -12,7 +12,7 @@
     <div class="flex flex-col md:flex-row bg-white rounded-2xl shadow-lg overflow-hidden max-w-4xl w-full">
         <!-- Event Poster -->
         <div class="md:w-1/2 w-full h-80 md:h-auto flex items-center justify-center bg-gray-100">
-            <img src="{{ $event->poster ? asset('storage/' . $event->poster) : asset('images/isetlink.jpg') }}" alt="Event poster" class="object-cover w-full h-full">
+            <img src="{{ $event->poster ? asset('storage/' . $event->poster) : asset('images/logo.png') }}" alt="Event poster" class="object-cover w-full h-full">
         </div>
         <!-- Form -->
         <div class="md:w-1/2 w-full p-8">

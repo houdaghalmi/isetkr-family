@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ISETLink Dashboard</title>
+    <title>ISETKR Family Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
@@ -13,7 +13,7 @@
         <!-- Sidebar -->
         <div class="w-64 bg-blue-800 text-white">
             <div class="p-4 border-b border-blue-700">
-                <h1 class="text-2xl font-bold">ISETLink</h1>
+                <h1 class="text-2xl font-bold">ISETKR Family</h1>
             </div>
             <nav class="p-4" x-data="{ open: '' }">
                 <ul class="space-y-2">

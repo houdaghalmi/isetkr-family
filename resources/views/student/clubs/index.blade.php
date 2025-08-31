@@ -22,7 +22,7 @@
             @foreach($clubs as $club)
             @if ($club->status==='active')
             <div class="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden flex flex-col items-center p-6">
-                <img src="{{ $club->logo ? asset('storage/' . $club->logo) : asset('images/isetlink.jpg') }}" alt="Club Logo" class="h-20 w-20 rounded-full object-cover border mb-4">
+                <img src="{{ $club->logo ? asset('storage/' . $club->logo) : asset('images/logo.png') }}" alt="Club Logo" class="h-20 w-20 rounded-full object-cover border mb-4">
                 <h1 class="inline-flex items-center text-purple-700  font-semibold">
                     {{ $club->name }}</h1>
                 <p class="text-gray-600 text-sm mb-4 text-center">{{ Str::limit($club->description, 80) }}</p>

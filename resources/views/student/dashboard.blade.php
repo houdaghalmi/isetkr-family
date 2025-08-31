@@ -19,7 +19,7 @@
             <!-- Logo & Create Club -->
             <div>
                 <div class="flex items-center gap-3 px-6 py-6">
-                    <img src="/images/logoisetlink.png" alt="ISETLink Logo" class=" object-contain" />
+                    <img src="/images/logo.png" alt="ISETKR Family Logo" class=" object-contain" />
                 </div>
 
                 <div class="px-6">

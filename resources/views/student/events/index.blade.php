@@ -24,7 +24,7 @@
             @if ($event->status !=='canceled')
                 <div class="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden flex flex-col">
                     <div class="relative">
-                        <img src="{{ $event->poster ? asset('storage/' . $event->poster) : asset('images/isetlink.jpg') }}" alt="Event poster" class="h-40 w-full object-cover">
+                        <img src="{{ $event->poster ? asset('storage/' . $event->poster) : asset('images/logo.png') }}" alt="Event poster" class="h-40 w-full object-cover">
                         @if($event->certificated)
                             <div class="absolute top-2 right-2 bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded-full flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" viewBox="0 0 20 20" fill="currentColor">
@@ -58,7 +58,7 @@
                             <span>{{ $event->location }}</span>
                         </div>
                          <div class="flex flex-wrap items-center text-xs text-gray-500 mt-2 mb-4 gap-x-2 gap-y-1">
-                            <img src="{{ $event->club && $event->club->logo ? asset('storage/' . $event->club->logo) : asset('images/isetlink.jpg') }}" alt="Club Logo" class="h-7 w-7 rounded-full object-cover border border-gray-200">
+                            <img src="{{ $event->club && $event->club->logo ? asset('storage/' . $event->club->logo) : asset('images/isetkr.jpg') }}" alt="Club Logo" class="h-7 w-7 rounded-full object-cover border border-gray-200">
                             <span class="font-semibold">{{ $event->club->name ?? 'Club Name' }}</span>
                         </div>
                         @if($event->status === 'pending' && !in_array($event->id, $registeredEventIds))

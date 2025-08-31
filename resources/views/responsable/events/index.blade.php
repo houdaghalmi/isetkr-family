@@ -31,7 +31,7 @@
                 <div class="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden flex flex-col">
                     <!-- Event Image -->
                     <div class="relative">
-                        <img src="{{ $event->poster ? asset('storage/' . $event->poster) : asset('images/isetlink.jpg') }}" 
+                        <img src="{{ $event->poster ? asset('storage/' . $event->poster) : asset('images/logo.png') }}" 
                              alt="Event poster" 
                              class="h-40 w-full object-cover">
                     </div>
@@ -99,7 +99,7 @@
 
                         <!-- Club Info -->
                         <div class="flex items-center text-xs text-gray-500 gap-2 mb-4">
-                            <img src="{{ $event->club && $event->club->logo ? asset('storage/' . $event->club->logo) : asset('images/isetlink.jpg') }}" 
+                            <img src="{{ $event->club && $event->club->logo ? asset('storage/' . $event->club->logo) : asset('images/logo.png') }}" 
                                  alt="Club Logo" 
                                  class="h-7 w-7 rounded-full object-cover border border-gray-200">
                             <span class="font-semibold">{{ $event->club->name ?? 'Club Name' }}</span>

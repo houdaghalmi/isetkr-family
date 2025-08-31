@@ -16,7 +16,7 @@
             <div>
                 <!-- Logo -->
                 <div class="flex items-center gap-3 px-6 py-6">
-                    <img src="/images/logoisetlink.png" alt="ISETLink Logo" class="object-contain" />
+                    <img src="/images/logo.png" alt="ISETKR Family Logo" class="object-contain" />
                 </div>
                 <!-- Navigation -->
                 <nav class="mt-8 space-y-1 px-4">
@@ -87,7 +87,7 @@
                     @forelse($responsibleClubs as $club)
                     <div class="bg-white rounded-lg border border-gray-100 p-4 hover:shadow-sm transition-shadow">
                         <div class="flex items-start space-x-4">
-                            <img src="{{ $club->logo ? asset('storage/' . $club->logo) : asset('images/isetlink.jpg') }}"
+                            <img src="{{ $club->logo ? asset('storage/' . $club->logo) : asset('images/logo.png') }}"
                                 alt="Club Logo"
                                 class="h-12 w-12 rounded-lg object-cover border border-gray-200">
                             <div class="flex-1 min-w-0">

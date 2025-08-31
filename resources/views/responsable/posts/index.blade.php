@@ -107,7 +107,7 @@
 
                     <div class="p-6">
                         <div class="flex items-center gap-3 mb-3">
-                            <img src="{{ $post->club && $post->club->logo ? asset('storage/' . $post->club->logo) : asset('images/isetlink.jpg') }}" 
+                            <img src="{{ $post->club && $post->club->logo ? asset('storage/' . $post->club->logo) : asset('images/logo.png') }}" 
                                  alt="Club Logo" 
                                  class="h-8 w-8 rounded-full object-cover border border-gray-200">
                             <span class="text-sm font-semibold text-purple-600">{{ $post->club->name ?? 'Club Name' }}</span>

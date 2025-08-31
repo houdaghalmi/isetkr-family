@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ISETLink - Login</title>
+    <title>ISETKR Family - Login</title>
     <style>
     * {
         margin: 0;
@@ -514,7 +514,7 @@
     <div class="main-container">
         <!-- Left Panel -->
         <div class="left-panel" style="color: #c4e9ec;">
-            <div class="logo" style="color: #2d3480;">ISETLink</div>
+            <div class="logo" style="color: #2d3480;">ISETKR Family</div>
             
             <div class="welcome-content">
                 <h1 style="color: #2d3480;">Welcome back!</h1>

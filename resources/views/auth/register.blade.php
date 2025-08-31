@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ISETLink - Register</title>
+    <title>ISETKR Family - Register</title>
     <style>
         /* 👇 Copie exacte du style de la page login */
         * {
@@ -218,7 +218,7 @@
 
     <div class="main-container">
         <div class="left-panel">
-            <div class="logo" style="color: #2d3480;">ISETLink</div>
+            <div class="logo" style="color: #2d3480;">ISETKR Family</div>
             <div class="welcome-content">
                 <h1>Join Us!</h1>
                 <div class="divider"></div>

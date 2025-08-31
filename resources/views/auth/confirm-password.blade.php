@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>ISETLink - Confirm Password</title>
+    <title>ISETKR Family - Confirm Password</title>
     <style>
-        /* Reprise du style ISETLink */
+        /* Reprise du style ISETKR Family */
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
@@ -184,7 +184,7 @@
     <div class="main-container">
         <!-- Left Panel -->
         <div class="left-panel">
-            <div class="logo">ISETLink</div>
+            <div class="logo">ISETKR Family</div>
             <div class="welcome-content">
                 <h1>Confirm Password</h1>
                 <div class="divider"></div>

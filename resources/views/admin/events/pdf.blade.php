@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Events Report - ISETLink</title>
+    <title>Events Report - ISETKR Family</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
         
@@ -163,10 +163,10 @@
         </table>
         
         <div class="footer">
-            <p>ISETLink - Connecting Students and Activities</p>
+            <p>ISETKR Family - Connecting Students and Activities</p>
             <div class="signature">
                 <div class="signature-line">
-                    ISETLink Administration<br>
+                    ISETKR Family Administration<br>
                     {{ now()->format('d F Y') }}
                 </div>
             </div>

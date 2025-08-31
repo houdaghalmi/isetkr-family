@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>IsetLink - Home</title>
+    <title>ISETKR Family - Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -308,7 +308,7 @@
             <div class="flex justify-between items-center py-4">
                 <!-- Logo and Brand -->
                 <div class="flex items-center space-x-4">
-                    <img src="/images/isetlink.jpg" alt="IsetLink" class="h-full w-32 ">
+                    <img src="/images/logo.png" alt="ISETKR Family" class="h-full w-32 ">
                 </div>
 
                 <!-- Desktop Navigation -->
@@ -727,7 +727,7 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
                 <div>
                     <div class="flex items-center mb-6">
-                        <span class="text-2xl font-bold">ISETLink</span>
+                        <span class="text-2xl font-bold">ISETKR Family</span>
                     </div>
                     <p class="text-gray-300 mb-6 leading-relaxed">Where student life meets technology<br> ISET Kairouan, connected</p>
                     <div class="flex space-x-4">

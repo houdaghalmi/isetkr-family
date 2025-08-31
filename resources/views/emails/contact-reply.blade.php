@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Réponse à votre message | ISET Link</title>
+  <title>Reply to your message | ISETKR Family</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -85,28 +85,25 @@
 <body>
   <div class="container">
     <div class="header">
-      <div class="logo">ISET Link</div>
-      <div class="subtitle">Réponse à votre message</div>
+      <div class="logo">ISETKR Family</div>
+      <div class="subtitle">Reply to your message</div>
     </div>
 
     <div class="content">
-      <p>Bonjour,</p>
-      <p>Merci de nous avoir contactés. Nous avons bien reçu votre message :</p>
+      <p>Hello,</p>
+      <p>Thank you for contacting us. We have received your message:</p>
        <div class="original-message">
-        <div class="section-title">Votre message :</div>
+        <div class="section-title">Your message:</div>
         {{ $originalMessage }}
       </div>
-      <div >
+      <div>
         {{ $replyMessage }}
       </div>
 
-     
-
-      <p style="margin-top: 20px;">Si vous avez d'autres questions, n'hésitez pas à nous écrire de nouveau.</p>
-      <p>Cordialement,<br><strong>L'équipe ISET Link</strong></p>
+      <p style="margin-top: 20px;">If you have any other questions, please feel free to write to us again.</p>
+      <p>Sincerely,<br><strong>The ISETKR Family Team</strong></p>
     </div>
 
-    
   </div>
 </body>
 </html>

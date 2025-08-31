@@ -14,7 +14,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             @foreach($clubs as $club)
                 <div class="bg-white rounded-xl shadow hover:shadow-lg transition flex flex-col items-center p-6">
-                    <img src="{{ $club->logo ? asset('storage/' . $club->logo) : asset('images/isetlink.jpg') }}" alt="Club Logo" class="h-20 w-20 rounded-full object-cover border mb-4">
+                    <img src="{{ $club->logo ? asset('storage/' . $club->logo) : asset('images/logo.png') }}" alt="Club Logo" class="h-20 w-20 rounded-full object-cover border mb-4">
                     <h2 class="text-lg font-semibold text-purple-700 mb-2">{{ $club->name }}</h2>
                     <div class="flex space-x-6 mb-4">
                         <div class="text-center">

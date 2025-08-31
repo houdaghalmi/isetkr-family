@@ -30,7 +30,7 @@
     <div class="relative z-10 mt-8 flex flex-col items-center">
         <div class="relative group">
             <div class="absolute -inset-1 bg-purple-400 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-200 animate-pulse"></div>
-            <img src="{{ $club->logo ? asset('storage/' . $club->logo) : asset('images/isetlink.jpg') }}" 
+            <img src="{{ $club->logo ? asset('storage/' . $club->logo) : asset('images/logo.png') }}" 
                  alt="{{ $club->name }} Logo" 
                  class="relative h-24 w-24 rounded-full object-cover border-4 border-white shadow-lg">
         </div>

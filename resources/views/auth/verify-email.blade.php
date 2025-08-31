@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>ISETLink - Email Verification</title>
+    <title>ISETKR Family - Email Verification</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -179,7 +179,7 @@
     <div class="main-container">
         <!-- Left Panel -->
         <div class="left-panel">
-            <div class="logo">ISETLink</div>
+            <div class="logo">ISETKR Family</div>
             <div class="welcome-content">
                 <h1>Email Verification</h1>
                 <div class="divider"></div>
