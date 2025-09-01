@@ -221,7 +221,7 @@
 <!--Main content-->
     <div class="flex-1 p-8">
         <div class="mb-4 flex items-center gap-4">
-            <span class="text-lg font-semibold">total posts <span class="bg-purple-100 text-purple-700 rounded px-2 py-1 text-xs ml-1">{{ $posts->total() }} posts</span></span>
+            <span class="text-lg font-semibold">total posts <span class="bg-blue-100 text-blue-700 rounded px-2 py-1 text-xs ml-1">{{ $posts->total() }} posts</span></span>
             <div class="ml-auto flex gap-2">
                 <input type="text" placeholder="Search by club, post title ..." class="border rounded px-3 py-2 w-64">
                 <button class="border px-3 py-2 rounded bg-white flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 6h18M3 12h18M3 18h18"/></svg> Filter</button>

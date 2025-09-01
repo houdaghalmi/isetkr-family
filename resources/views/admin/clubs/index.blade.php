@@ -158,7 +158,7 @@
                         </div>
                         <div class="flex justify-end gap-2">
                             <button type="button" @click="openClubModal = false" class="bg-gray-200 text-gray-700 px-6 py-2 rounded">Cancel</button>
-                            <button type="submit" class="bg-purple-600 text-white px-6 py-2 rounded hover:bg-purple-700">Create Club</button>
+                            <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Create Club</button>
                         </div>
                     </form>
                 </div>
@@ -218,7 +218,7 @@
                         </div>
                         <div class="flex justify-end gap-2">
                             <button type="button" @click="openEventModal = false" class="bg-gray-200 text-gray-700 px-6 py-2 rounded">Cancel</button>
-                            <button type="submit" class="bg-green-700 text-white px-6 py-2 rounded flex items-center gap-2">
+                            <button type="submit" class="bg-blue-700 text-white px-6 py-2 rounded flex items-center gap-2">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
                                 Create Event
                             </button>
@@ -233,9 +233,9 @@
     <div class="flex-1 flex flex-col p-8">
         <!-- Top Bar -->
         <div class="flex justify-between items-center mb-6">
-            <div class="text-2xl font-bold text-gray-800">total clubs <span class="ml-2 px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-sm font-semibold">{{ $clubs->total() }} clubs</span></div>
+            <div class="text-2xl font-bold text-gray-800">total clubs <span class="ml-2 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-sm font-semibold">{{ $clubs->total() }} clubs</span></div>
             <div class="flex items-center gap-2">
-                <a href="/admin/clubs/pdf" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50">
+                <a href="{{ route('admin.clubs.pdf') }}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50">
                     <i class="fas fa-download mr-2"></i> Download PDF Report
                 </a>
             </div>

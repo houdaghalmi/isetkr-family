@@ -47,10 +47,10 @@ Route::get('messages/{id}/reply', [ContactMessageController::class, 'reply'])->n
 Route::post('messages/{id}/reply', [ContactMessageController::class, 'sendReply'])->name('messages.sendReply');
 Route::post('messages/{id}/mark-as-read', [ContactMessageController::class, 'markAsRead'])->name('messages.markAsRead');
 Route::resource('users', UserController::class);
-Route::get('/admin/clubs/pdf', [ClubController::class, 'downloadPdf'])->name('admin.clubs.pdf');
-Route::get('/admin/events/pdf', [EventController::class, 'downloadPdf'])->name('admin.events.pdf');
-Route::get('/admin/users/pdf', [UserController::class, 'downloadPdf'])->name('admin.users.pdf');
-Route::get('/events/{event}/participants/pdf', [EventParticipantController::class, 'downloadPdf'])->name('admin.events.participants.pdf');
+Route::get('/clubs/pdf', [ClubController::class, 'downloadPdf'])->name('clubs.pdf');
+Route::get('/events/pdf', [EventController::class, 'downloadPdf'])->name('events.pdf');
+Route::get('admin/users/pdf', [UserController::class, 'downloadPdf'])->name('users.pdf');
+Route::get('/events/{event}/participants/pdf', [EventParticipantController::class, 'downloadPdf'])->name('events.participants.pdf');
 Route::get('/events/upcoming', [DashboardController::class, 'upcomingEvents'])->name('events.upcoming');
 Route::post('/admin/clubs/{club}/validate', [ClubController::class, 'validateClub'])->name('clubs.validate');
 });

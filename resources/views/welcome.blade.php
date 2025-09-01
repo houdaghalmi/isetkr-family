@@ -372,16 +372,10 @@
                         join student clubs, take part in unforgettable events, and craft stories worth remembering from your student life.e.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 mt-6">
-                        <!-- Explore Events Button -->
-                        <a href="#events"
-                            class="bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-4 rounded-full text-lg font-semibold shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center">
-                            <i class="fas fa-calendar-alt mr-2"></i>
-                            Explore Events
-                        </a>
-
+                    
                         <!-- Join Now Button -->
                         <a href="{{ auth()->check() ? (auth()->user()->role === 'admin' ? route('admin.dashboard') : (auth()->user()->role === 'club_responsible' ? route('responsible.dashboard') : route('student.dashboard'))) : route('login') }}"
-                            class="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 rounded-full text-lg font-semibold shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center">
+                            class="border-2 mx-20 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 rounded-full text-lg font-semibold shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center">
                             <i class="fas fa-user-plus mr-2"></i>
                             {{ auth()->check() ? 'Go to Dashboard' : 'Join Now' }}
                         </a>

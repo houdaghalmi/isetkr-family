@@ -226,11 +226,11 @@
         <!-- Header Section -->
         <div class="flex justify-between items-center mb-6 ">
             <h1 class="text-xl font-bold text-gray-800">Total Events 
-                <span class="ml-2 px-2 py-1 rounded-full bg-purple-100 text-purple-700 text-sm font-semibold">
+                <span class="ml-2 px-2 py-1 rounded-full bg-blue-100 text-blue-700 text-sm font-semibold">
                     {{ $events->total() }} events
                 </span>
             </h1>
-                <a href="/admin/events/pdf" target="_blank"
+                <a href="{{ route('admin.events.pdf') }}" target="_blank"
                    class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50">
                     <i class="fas fa-download mr-2 text-xs"></i> Download PDF Report
                 </a>

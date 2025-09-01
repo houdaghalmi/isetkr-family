@@ -79,9 +79,9 @@
     <div class="flex-1 flex flex-col p-8">
         <!-- Top Bar -->
         <div class="flex justify-between items-center mb-6">
-            <div class="text-2xl font-bold text-gray-800">Users <span class="ml-2 px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-sm font-semibold">{{ $totalUsers }} users</span></div>
+            <div class="text-2xl font-bold text-gray-800">Users <span class="ml-2 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-sm font-semibold">{{ $totalUsers }} users</span></div>
             <div class="flex items-center gap-2">
-                <a href="/admin/users/pdf" target="_blank"
+                <a href="{{ route('admin.users.pdf') }}" target="_blank"
                    class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50">
                     <i class="fas fa-download mr-2"></i> Download PDF Report
                 </a>
@@ -109,7 +109,7 @@
                                 @if($user->avatar)
                                     <img src="{{ asset('storage/' . $user->avatar) }}" class="w-8 h-8 rounded-full object-cover" alt="avatar">
                                 @else
-                                    <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center text-purple-700 font-semibold">
+                                    <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-semibold">
                                        {{ strtoupper(substr($user->nom, 0, 1) ) }}
 
                                     </div>
@@ -127,7 +127,7 @@
                             <td class="px-6 py-4 whitespace-nowrap text-gray-700">
                                 <div class="flex flex-wrap gap-1">
                                     @foreach($user->clubMemberships as $club)
-                                        <span class="px-2 py-1 bg-purple-50 text-purple-700 text-xs rounded-full">{{ $club->club->name }}</span>
+                                        <span class="px-2 py-1 bg-blue-50 text-blue-700 text-xs rounded-full">{{ $club->club->name }}</span>
                                     @endforeach
                                 </div>
                             </td>

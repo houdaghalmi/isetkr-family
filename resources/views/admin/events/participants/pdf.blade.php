@@ -12,13 +12,14 @@
             line-height: 1.6;
             padding: 0;
             margin: 0;
+            background-color: #f4f6f9;
         }
         
         .container {
             max-width: 100%;
-            background: white;
+            background: #fff;
             border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
             padding: 30px;
             margin: 20px auto;
         }
@@ -29,30 +30,29 @@
             align-items: center;
             margin-bottom: 25px;
             padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .logo {
-            height: 50px;
+            border-bottom: 3px solid #2d3480;
         }
         
         h1 {
-            color: #2c3e50;
+            color: #2d3480;
             font-weight: 600;
             margin: 0 0 5px 0;
-            font-size: 22px;
+            font-size: 24px;
         }
         
         .report-info {
             text-align: right;
-            color: #7f8c8d;
-            font-size: 14px;
+            color: #555;
+            font-size: 13px;
         }
         
+        /* Event details box */
         .event-details {
-            background-color: #f8f9fa;
+            background-color: #f8f9fc;
+            border: 1px solid #e0e0e0;
+            border-left: 4px solid #f59e0b;
             border-radius: 8px;
-            padding: 15px;
+            padding: 15px 20px;
             margin-bottom: 25px;
         }
         
@@ -63,91 +63,98 @@
         }
         
         .detail-item strong {
-            color: #3498db;
+            color: #3d4490;
             display: block;
             margin-bottom: 3px;
             font-size: 13px;
+            font-weight: 600;
         }
         
         .detail-item span {
             font-size: 14px;
+            color: #2d3480;
         }
         
+        /* Table */
         table {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 0;
             margin-top: 15px;
             font-size: 13px;
-            box-shadow: 0 0 0 1px #e0e0e0;
             border-radius: 8px;
             overflow: hidden;
         }
         
-        th {
-            background-color: #3498db;
-            color: white;
-            font-weight: 500;
+        thead th {
+            background: linear-gradient(90deg, #2d3480, #3d4490);
+            color: #f59e0b;
+            font-weight: 600;
             text-align: left;
             padding: 12px 15px;
             font-size: 13px;
+            border-bottom: 2px solid #2d3480;
         }
         
-        td {
+        tbody td {
             padding: 10px 15px;
             border-bottom: 1px solid #e0e0e0;
+            background-color: #fff;
         }
         
-        tr:nth-child(even) {
-            background-color: #f8f9fa;
+        tr:nth-child(even) td {
+            background-color: #f8f9fc;
         }
         
-        tr:hover {
-            background-color: #f1f7fd;
+        tr:hover td {
+            background-color: #f1f4fb;
         }
         
         /* Status Badges */
         .status-present {
-            color: #27ae60;
-            font-weight: 500;
+            color: #2d3480;
+            font-weight: 600;
         }
         
         .status-absent {
             color: #e74c3c;
-            font-weight: 500;
+            font-weight: 600;
         }
         
         .status-pending {
-            color: #f39c12;
-            font-weight: 500;
+            color: #f59e0b;
+            font-weight: 600;
         }
         
         .footer {
-            margin-top: 30px;
+            margin-top: 40px;
             padding-top: 20px;
-            border-top: 1px solid #eee;
-            text-align: right;
+            border-top: 2px solid #3d4490;
+            text-align: center;
             font-size: 12px;
-            color: #7f8c8d;
+            color: #666;
         }
         
         .signature {
-            margin-top: 40px;
+            margin-top: 50px;
             display: flex;
             justify-content: flex-end;
         }
         
         .signature-line {
-            border-top: 1px solid #3498db;
-            width: 200px;
+            border-top: 2px solid #f59e0b;
+            width: 220px;
             text-align: center;
-            padding-top: 5px;
-            font-size: 12px;
+            padding-top: 8px;
+            font-size: 13px;
+            color: #2d3480;
+            font-weight: 500;
         }
         
         .participant-count {
-            background-color: #3498db;
+            background-color: #2d3480;
             color: white;
-            padding: 5px 10px;
+            padding: 5px 12px;
             border-radius: 20px;
             font-size: 13px;
             margin-bottom: 15px;
@@ -188,13 +195,10 @@
             </div>
         </div>
         
-        
-        
         <table>
             <thead>
                 <tr>
-                    <th>Last Name</th>
-                    <th>First Name</th>
+                    <th> Name</th>
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Class</th>
@@ -204,8 +208,7 @@
             <tbody>
                 @foreach($participants as $i => $participant)
                 <tr>
-                    <td>{{ $participant->user->nom ?? '-' }}</td>
-                    <td>{{ $participant->user->prenom ?? '-' }}</td>
+                    <td>{{ $participant->user->nom  }} {{ $participant->user->prenom  }}</td>
                     <td>{{ $participant->user->email ?? '-' }}</td>
                     <td>{{ $participant->user->numero ?? '-' }}</td>
                     <td>{{ $participant->classe ?? '-' }}</td>
@@ -218,7 +221,7 @@
         </table>
         
         <div class="footer">
-            <p>ISETKR Family - Event Management System</p>
+            <p><strong>ISETKR Family</strong> – Event Management System</p>
             <div class="signature">
                 <div class="signature-line">
                     ISETKR Family Administration<br>

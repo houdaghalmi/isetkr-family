@@ -97,7 +97,7 @@
                 Cancel
             </a>
             <button type="submit" 
-                    class="px-3 py-1.5 bg-purple-600 text-white text-m font-medium rounded hover:bg-purple-700 focus:outline-none focus:ring-1 focus:ring-blue-500">
+                    class="px-3 py-1.5 bg-green-600 text-white text-m font-medium rounded hover:bg-green-700 focus:outline-none focus:ring-1 focus:ring-blue-500">
                 Update Post
             </button>
         </div>

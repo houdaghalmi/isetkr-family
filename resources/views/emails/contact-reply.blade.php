@@ -23,7 +23,7 @@
     }
 
     .header {
-      background-color: #3f51b5;
+      background-color: #2d3480; /* deep blue */
       color: white;
       text-align: center;
       padding: 24px;
@@ -37,6 +37,7 @@
     .subtitle {
       font-size: 1rem;
       margin-top: 4px;
+      color: #fcd34d; /* soft gold accent */
     }
 
     .content {
@@ -46,7 +47,7 @@
     .section-title {
       font-size: 1rem;
       font-weight: 600;
-      color: #3f51b5;
+      color: #2d3480; /* blue title */
       margin-bottom: 8px;
     }
 
@@ -54,22 +55,26 @@
     .original-message {
       background-color: #f3f4f6;
       padding: 16px;
-      border-left: 4px solid #3f51b5;
+      border-left: 4px solid #2d3480;
       margin: 20px 0;
       border-radius: 4px;
       white-space: pre-line;
     }
 
     .original-message {
-      border-left-color: #5c6bc0;
+      border-left-color: #3f4c9a; /* lighter blue */
     }
 
     .footer {
-      background-color: #3f51b5;
+      background-color: #2d3480;
       color: white;
       text-align: center;
       font-size: 0.85rem;
       padding: 16px;
+    }
+
+    .footer strong {
+      color: #f59e0b; /* gold highlight */
     }
 
     @media (max-width: 600px) {
@@ -96,7 +101,7 @@
         <div class="section-title">Your message:</div>
         {{ $originalMessage }}
       </div>
-      <div>
+      <div class="reply-box">
         {{ $replyMessage }}
       </div>
 
@@ -104,6 +109,9 @@
       <p>Sincerely,<br><strong>The ISETKR Family Team</strong></p>
     </div>
 
+    <div class="footer">
+      &copy; 2025 <strong>ISETKR Family</strong>. All rights reserved.
+    </div>
   </div>
 </body>
 </html>
