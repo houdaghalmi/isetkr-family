@@ -11,28 +11,27 @@
     @include('components.responsible-topbar')
 
     <div class="max-w-7xl mx-auto px-4 py-8">
-    
 
         <!-- Header -->
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
             <div class="flex-1">
                 <div class="flex items-center gap-3 mb-2">
                     <a href="{{ route('responsible.events.index') }}" 
-                       class="text-gray-600 hover:text-purple-700 transition">
+                       class="text-gray-600 hover:text-blue-700 transition">
                         <i class="fas fa-arrow-left mr-2"></i>Back to Events
                     </a>
                 </div>
-                <h1 class="text-3xl font-bold ">{{ $event->title }} Participants</h1>
+                <h1 class="text-3xl font-bold text-[#2d3480]">{{ $event->title }} Participants</h1>
                 <div class="flex items-center gap-4 mt-2 text-sm text-gray-500">
                     <span><i class="fas fa-calendar mr-1"></i>{{ $event->datetime ? $event->datetime->format('d M Y, H:i') : 'Date not set' }}</span>
                     <span><i class="fas fa-map-marker-alt mr-1"></i>{{ $event->location }}</span>
                     <span><i class="fas fa-users mr-1"></i>{{ $participants->total() }} participants</span>
                 </div>
             </div>
-            
+
             <div class="flex items-center gap-3">
                 <a href="{{ route('responsible.events.participants.pdf', $event->id) }}" 
-                   class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition">
+                   class="bg-[#2d3480] text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
                     <i class="fas fa-download mr-2"></i>Download PDF
                 </a>
             </div>
@@ -44,21 +43,11 @@
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Participant
-                            </th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Phone Number
-                            </th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Class
-                            </th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Status
-                            </th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Actions
-                            </th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Participant</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone Number</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Class</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
@@ -72,8 +61,8 @@
                                                      src="{{ asset('storage/' . $participant->user->avatar) }}" 
                                                      alt="Avatar">
                                             @else
-                                                <div class="h-10 w-10 rounded-full bg-purple-200 flex items-center justify-center">
-                                                    <i class="fas fa-user text-purple-600"></i>
+                                                <div class="h-10 w-10 rounded-full bg-blue-200 flex items-center justify-center">
+                                                    <i class="fas fa-user text-blue-600"></i>
                                                 </div>
                                             @endif
                                         </div>
@@ -93,28 +82,25 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     @if($participant->participation_status === 'registered')
-                                        <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
-                                            Registered
-                                        </span>
+                                        <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">Registered</span>
                                     @elseif($participant->participation_status === 'attended')
-                                        <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                                            Attended
-                                        </span>
+                                        <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">Attended</span>
                                     @elseif($participant->participation_status === 'absent')
-                                        <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">
-                                            Absent
-                                        </span>
+                                        <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">Absent</span>
                                     @else
-                                        <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">
-                                            Unknown
-                                        </span>
+                                        <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">Unknown</span>
                                     @endif
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                     <div class="flex items-center gap-2">
-                                        <button onclick="openEditModal({{ $participant->id }}, '{{ addslashes($participant->classe) }}', '{{ addslashes($participant->participation_status) }}')"
-                                                class="text-gray-400 hover:text-purple-600 transition"
-                                                title="Edit">
+                                        <!-- Edit Button with data attributes -->
+                                        <button 
+                                            class="edit-btn text-gray-400 hover:text-blue-600 transition"
+                                            data-id="{{ $participant->id }}"
+                                            data-classe="{{ e($participant->classe ?? '') }}"
+                                            data-status="{{ e($participant->participation_status ?? '') }}"
+                                            title="Edit"
+                                        >
                                             <i class="fas fa-edit"></i>
                                         </button>
                                         <form action="{{ route('responsible.events.participants.destroy', ['event' => $event->id, 'participant' => $participant->id]) }}" 
@@ -170,7 +156,7 @@
                         <input type="text" 
                                id="classe" 
                                name="classe" 
-                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                                required>
                     </div>
                     
@@ -178,7 +164,7 @@
                         <label for="participation_status" class="block text-sm font-medium text-gray-700 mb-2">Participation Status</label>
                         <select id="participation_status" 
                                 name="participation_status" 
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 required>
                             <option value="registered">Registered</option>
                             <option value="attended">Attended</option>
@@ -193,7 +179,7 @@
                             Cancel
                         </button>
                         <button type="submit" 
-                                class="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition">
+                                class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
                             Update
                         </button>
                     </div>
@@ -203,12 +189,19 @@
     </div>
 
     <script>
-        function openEditModal(participantId, classe, status) {
-            document.getElementById('classe').value = classe;
-            document.getElementById('participation_status').value = status;
-            document.getElementById('editForm').action = `/responsible/events/{{ $event->id }}/participants/${participantId}`;
-            document.getElementById('editModal').classList.remove('hidden');
-        }
+        // Open modal when edit button is clicked
+        document.querySelectorAll('.edit-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const participantId = this.dataset.id;
+                const classe = this.dataset.classe;
+                const status = this.dataset.status;
+
+                document.getElementById('classe').value = classe;
+                document.getElementById('participation_status').value = status;
+                document.getElementById('editForm').action = `/responsible/events/{{ $event->id }}/participants/${participantId}`;
+                document.getElementById('editModal').classList.remove('hidden');
+            });
+        });
 
         function closeEditModal() {
             document.getElementById('editModal').classList.add('hidden');

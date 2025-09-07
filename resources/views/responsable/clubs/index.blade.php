@@ -7,15 +7,27 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50">
-        @include('components.responsible-topbar')
+    @include('components.responsible-topbar')
 
     <div class="max-w-6xl mx-auto px-4 py-8">
-        <h1 class="text-2xl font-bold mb-8 text-purple-700">My Clubs</h1>
+        <!-- Header with Create Button -->
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-2xl font-bold text-[#2d3480]">My Clubs</h1>
+            <a href="{{ route('responsible.clubs.create') }}" 
+               class="bg-[#2d3480] hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition-all duration-200 flex items-center space-x-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                </svg>
+                <span>Create Club</span>
+            </a>
+        </div>
+
+        <!-- Clubs Grid -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             @foreach($clubs as $club)
                 <div class="bg-white rounded-xl shadow hover:shadow-lg transition flex flex-col items-center p-6">
                     <img src="{{ $club->logo ? asset('storage/' . $club->logo) : asset('images/logo.png') }}" alt="Club Logo" class="h-20 w-20 rounded-full object-cover border mb-4">
-                    <h2 class="text-lg font-semibold text-purple-700 mb-2">{{ $club->name }}</h2>
+                    <h2 class="text-lg font-semibold text-[#2d3480] mb-2">{{ $club->name }}</h2>
                     <div class="flex space-x-6 mb-4">
                         <div class="text-center">
                             <div class="text-xs text-gray-500">Members</div>
@@ -43,7 +55,7 @@
                         @endif
                     </div>
                     <div class="flex space-x-2 w-full">
-                        <a href="{{ route('responsible.clubs.show', $club->id) }}" class="flex-1 text-center bg-purple-600 text-white py-2 rounded-lg font-semibold hover:bg-purple-700 transition">View Members</a>
+                        <a href="{{ route('responsible.clubs.show', $club->id) }}" class="flex-1 text-center bg-blue-900 text-white py-2 rounded-lg font-semibold hover:bg-blue-600 transition">View Members</a>
                         <a href="{{ route('responsible.clubs.edit', $club->id) }}" class="flex-1 text-center bg-gray-200 text-gray-700 py-2 rounded-lg font-semibold hover:bg-gray-300 transition">Edit</a>
                     </div>
                 </div>

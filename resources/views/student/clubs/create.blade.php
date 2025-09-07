@@ -96,27 +96,27 @@
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-1">
-                                <label class="block text-sm font-medium text-purple-900/90 mb-1">Last Name</label>
+                                <label class="text-sm font-medium text-purple-900/90 mb-1">Last Name</label>
                                 <input type="text" value="{{ auth()->user()->nom }}" readonly 
-                                       class="w-full border border-purple-200/70 rounded-lg px-4 py-3 bg-purple-50/50 text-purple-800 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-transparent transition-all duration-200">
+                                       class="w-full border border-purple-200/70 rounded-lg px-4 py-3 bg-purple-50/50 text-purple-800 focus:outline-none focus:ring-2 focus:ring-purple-300 transition-all duration-200">
                             </div>
                             <div class="space-y-1">
-                                <label class="block text-sm font-medium text-purple-900/90 mb-1">First Name</label>
+                                <label class="text-sm font-medium text-purple-900/90 mb-1">First Name</label>
                                 <input type="text" value="{{ auth()->user()->prenom }}" readonly 
-                                       class="w-full border border-purple-200/70 rounded-lg px-4 py-3 bg-purple-50/50 text-purple-800 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-transparent transition-all duration-200">
+                                       class="w-full border border-purple-200/70 rounded-lg px-4 py-3 bg-purple-50/50 text-purple-800 focus:outline-none focus:ring-2 focus:ring-purple-300 transition-all duration-200">
                             </div>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-1">
-                                <label class="block text-sm font-medium text-purple-900/90 mb-1">Email</label>
+                                <label class="text-sm font-medium text-purple-900/90 mb-1">Email</label>
                                 <input type="email" value="{{ auth()->user()->email }}" readonly 
-                                       class="w-full border border-purple-200/70 rounded-lg px-4 py-3 bg-purple-50/50 text-purple-800 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-transparent transition-all duration-200">
+                                       class="w-full border border-purple-200/70 rounded-lg px-4 py-3 bg-purple-50/50 text-purple-800 focus:outline-none focus:ring-2 focus:ring-purple-300 transition-all duration-200">
                             </div>
                             <div class="space-y-1">
-                                <label class="block text-sm font-medium text-purple-900/90 mb-1">Phone Number</label>
+                                <label class="text-sm font-medium text-purple-900/90 mb-1">Phone Number</label>
                                 <input type="text" name="numero" value="{{ auth()->user()->numero }}" 
-                                       class="w-full border border-purple-200/70 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-transparent transition-all duration-200" 
+                                       class="w-full border border-purple-200/70 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-300 transition-all duration-200" 
                                        placeholder="e.g. 06 12 34 56 78">
                             </div>
                         </div>
@@ -132,18 +132,18 @@
                         </h3>
 
                         <div class="space-y-1">
-                            <label class="block text-sm font-medium text-purple-900/90 mb-1 flex items-center">
-                                Club Name <span class="text-purple-600 ml-1">*</span>
+                            <label class="text-sm font-medium text-purple-900/90 mb-1">
+                                Club Name <span class="text-purple-600">*</span>
                             </label>
                             <input type="text" name="name" required 
-                                   class="w-full border border-purple-200/70 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-transparent transition-all duration-200" 
+                                   class="w-full border border-purple-200/70 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-300 transition-all duration-200" 
                                    placeholder="Enter the official name of your club">
                         </div>
 
-                        <!-- Enhanced Logo Upload -->
+                        <!-- Logo Upload -->
                         <div class="space-y-1">
-                            <label class="block text-sm font-medium text-purple-900/90 mb-1 flex items-center">
-                                Club Logo <span class="text-purple-600 ml-1">*</span>
+                            <label class="text-sm font-medium text-purple-900/90 mb-1">
+                                Club Logo <span class="text-purple-600">*</span>
                             </label>
                             <div class="border-2 border-dashed border-purple-300 rounded-xl p-6 text-center hover:border-purple-400 transition-all duration-300 bg-purple-50/30 relative group">
                                 <div id="uploadArea" class="flex flex-col items-center justify-center space-y-3">
@@ -168,25 +168,25 @@
                         </div>
 
                         <div class="space-y-1">
-                            <label class="block text-sm font-medium text-purple-900/90 mb-1 flex items-center">
-                                Description <span class="text-purple-600 ml-1">*</span>
+                            <label class="text-sm font-medium text-purple-900/90 mb-1">
+                                Description <span class="text-purple-600">*</span>
                             </label>
                             <textarea name="description" required rows="4" 
-                                      class="w-full border border-purple-200/70 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-transparent transition-all duration-200" 
+                                      class="w-full border border-purple-200/70 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-300 transition-all duration-200" 
                                       placeholder="Introduce your club in a few words"></textarea>
                         </div>
 
                         <div class="space-y-1">
-                            <label class="block text-sm font-medium text-purple-900/90 mb-1 flex items-center">
-                                Club Objectives <span class="text-purple-600 ml-1">*</span>
+                            <label class="text-sm font-medium text-purple-900/90 mb-1">
+                                Club Objectives <span class="text-purple-600">*</span>
                             </label>
                             <textarea name="objective" required rows="3" 
-                                      class="w-full border border-purple-200/70 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-transparent transition-all duration-200" 
+                                      class="w-full border border-purple-200/70 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-300 transition-all duration-200" 
                                       placeholder="What kind of impact do you want your club to make?"></textarea>
                         </div>
                     </div>
 
-                    <!-- Enhanced Submit Button -->
+                    <!-- Submit Button -->
                     <div class="pt-4">
                         <button type="submit" 
                                 class="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white py-3.5 rounded-lg font-semibold text-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
@@ -202,7 +202,6 @@
     </div>
 
     <script>
-        // Enhanced Logo preview functionality
         const logoInput = document.getElementById('logoInput');
         const logoPreview = document.getElementById('logoPreview');
         const uploadArea = document.getElementById('uploadArea');
@@ -210,14 +209,12 @@
         logoInput.addEventListener('change', function(event) {
             const [file] = event.target.files;
             if (file) {
-                // Check file size (5MB max)
                 if (file.size > 5 * 1024 * 1024) {
                     alert('File is too large (max 5MB)');
                     this.value = '';
                     return;
                 }
                 
-                // Check file type
                 const validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
                 if (!validTypes.includes(file.type)) {
                     alert('Only JPG, PNG and JPEG files are accepted');
@@ -225,7 +222,6 @@
                     return;
                 }
                 
-                // Display preview with animation
                 logoPreview.src = URL.createObjectURL(file);
                 logoPreview.classList.remove('hidden');
                 logoPreview.classList.add('animate-bounce-in');
@@ -233,7 +229,6 @@
             }
         });
 
-        // Enhanced Drag and drop functionality
         const dropArea = document.querySelector('.border-dashed');
         
         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {

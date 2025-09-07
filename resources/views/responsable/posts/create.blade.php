@@ -5,119 +5,109 @@
     <title>Create Post - Responsible</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#2d3480",
+              secondary: "#3d4490",
+              accent: "#f59e0b",
+            }
+          }
+        }
+      }
+    </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-<body class="bg-gray-50 text-gray-900">
+<body class="bg-gray-50 min-h-screen text-gray-900">
     @include('components.responsible-topbar')
 
-    <div class="max-w-4xl mx-auto px-4 py-8">
-        <!-- Header -->
-        <div class="flex items-center justify-between mb-8">
-            <div>
-                <h1 class="text-3xl font-bold text-purple-800">Create New Post</h1>
-                <p class="text-gray-600 mt-2">Share your club's activities and updates with the community</p>
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-6xl mx-auto bg-white rounded-xl shadow-lg border border-gray-200">
+
+            <!-- Header -->
+            <div class="flex items-center justify-between mb-8 bg-gradient-to-r from-primary to-secondary p-6 rounded-t-xl">
+                <div>
+                    <h1 class="text-2xl font-bold text-white">Create New Post</h1>
+                    <p class="text-white/80 mt-1 text-sm">Share your club's activities and updates with the community</p>
+                </div>
+                <a href="{{ route('responsible.posts.index') }}" class="flex items-center text-accent font-medium">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Posts
+                </a>
             </div>
-            <a href="{{ route('responsible.posts.index') }}" 
-               class="text-purple-600 hover:text-purple-700 px-4 py-2 border border-purple-200 rounded-lg transition">
-                <i class="fas fa-arrow-left mr-2"></i>Back to Posts
-            </a>
-        </div>
 
-        <!-- Create Post Form -->
-        <div class="bg-white rounded-xl shadow-lg p-8">
-            <form action="{{ route('responsible.posts.store') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                
-                <!-- Club Selection -->
-                <div class="mb-6">
-                    <label for="club_id" class="block text-sm font-medium text-gray-700 mb-2">
-                        <i class="fas fa-users mr-2 text-purple-600"></i>Select Club
-                    </label>
-                    <select id="club_id" name="club_id" required
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition">
-                        <option value="">Choose a club...</option>
-                        @foreach($clubs as $club)
-                            <option value="{{ $club->id }}" {{ old('club_id') == $club->id ? 'selected' : '' }}>
-                                {{ $club->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                    @error('club_id')
-                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
+            <!-- Form -->
+            <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="md:col-span-2 space-y-6">
+                    <form action="{{ route('responsible.posts.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+                        @csrf
 
-                <!-- Title -->
-                <div class="mb-6">
-                    <label for="title" class="block text-sm font-medium text-gray-700 mb-2">
-                        <i class="fas fa-heading mr-2 text-purple-600"></i>Post Title
-                    </label>
-                    <input type="text" id="title" name="title" value="{{ old('title') }}" required
-                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition"
-                           placeholder="Enter an engaging title for your post">
-                    @error('title')
-                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
+                        <!-- Club Selection -->
+                        <div>
+                            <label for="club_id" class="block text-sm font-semibold text-primary mb-2">Select Club *</label>
+                            <select id="club_id" name="club_id" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-accent focus:border-accent">
+                                <option value="">Choose a club...</option>
+                                @foreach($clubs as $club)
+                                    <option value="{{ $club->id }}" {{ old('club_id') == $club->id ? 'selected' : '' }}>
+                                        {{ $club->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
 
-                <!-- Content -->
-                <div class="mb-6">
-                    <label for="content" class="block text-sm font-medium text-gray-700 mb-2">
-                        <i class="fas fa-align-left mr-2 text-purple-600"></i>Post Content
-                    </label>
-                    <textarea id="content" name="content" rows="6" required
-                              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition resize-none"
-                              placeholder="Write your post content here...">{{ old('content') }}</textarea>
-                    @error('content')
-                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
+                        <!-- Title -->
+                        <div>
+                            <label for="title" class="block text-sm font-semibold text-primary mb-2">Post Title *</label>
+                            <input type="text" id="title" name="title" value="{{ old('title') }}" required
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-accent focus:border-accent"
+                                   placeholder="Enter an engaging title for your post">
+                        </div>
 
-                <!-- Image Upload -->
-                <div class="mb-6">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                        <i class="fas fa-images mr-2 text-purple-600"></i>Post Images
-                    </label>
-                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-purple-400 transition">
-                        <div class="space-y-4">
-                            <i class="fas fa-cloud-upload-alt text-4xl text-gray-400"></i>
-                            <div>
-                                <p class="text-sm text-gray-600">
-                                    <span class="font-medium text-purple-600">Click to upload</span> or drag and drop
-                                </p>
-                                <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB each</p>
+                        <!-- Content -->
+                        <div>
+                            <label for="content" class="block text-sm font-semibold text-primary mb-2">Post Content *</label>
+                            <textarea id="content" name="content" rows="6" required
+                                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-accent focus:border-accent resize-none"
+                                      placeholder="Write your post content here...">{{ old('content') }}</textarea>
+                        </div>
+
+                        <!-- Image Upload -->
+                        <div>
+                            <label class="block text-sm font-semibold text-primary mb-2">Add Images</label>
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-accent transition">
+                                <div class="space-y-4">
+                                    <i class="fas fa-cloud-upload-alt text-4xl text-gray-400"></i>
+                                    <p class="text-sm text-gray-600">
+                                        <span class="font-medium text-primary">Click to upload</span> or drag and drop
+                                    </p>
+                                    <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB each</p>
+                                    <input type="file" id="images" name="images[]" multiple accept="image/*" class="hidden" onchange="previewImages(this)">
+                                    <button type="button" onclick="document.getElementById('images').click()"
+                                            class="bg-primary text-white px-6 py-2 rounded-md hover:bg-blue-800 transition">
+                                        Choose Images
+                                    </button>
+                                </div>
                             </div>
-                            <input type="file" id="images" name="images[]" multiple accept="image/*"
-                                   class="hidden" onchange="previewImages(this)">
-                            <button type="button" onclick="document.getElementById('images').click()"
-                                    class="bg-purple-100 text-purple-700 px-6 py-2 rounded-lg hover:bg-purple-200 transition">
-                                Choose Images
+                        </div>
+
+                        <!-- Submit -->
+                        <div class="flex justify-end space-x-4 pt-6 border-t border-gray-200">
+                            <a href="{{ route('responsible.posts.index') }}" class="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100">Cancel</a>
+                            <button type="submit" class="px-8 py-3 bg-accent text-white font-semibold rounded-md hover:bg-yellow-700 transition">
+                                <i class="fas fa-paper-plane mr-2"></i>Create Post
                             </button>
                         </div>
-                    </div>
-                    
-                    <!-- Image Preview -->
-                    <div id="imagePreview" class="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4" style="display:none;">
-                        <!-- Preview images will be inserted here -->
-                    </div>
-                    
-                    @error('images')
-                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                    @enderror
+                    </form>
                 </div>
 
-                <!-- Submit Button -->
-                <div class="flex items-center justify-end gap-4 pt-6 border-t border-gray-200">
-                    <a href="{{ route('responsible.posts.index') }}" 
-                       class="px-6 py-3 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition">
-                        Cancel
-                    </a>
-                    <button type="submit" 
-                            class="px-8 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition shadow-lg">
-                        <i class="fas fa-paper-plane mr-2"></i>Create Post
-                    </button>
+                <!-- Right: Images Preview -->
+                <div>
+                    <label class="block text-sm font-semibold text-primary mb-2">Images Preview</label>
+                    <div id="imagePreview" class="grid grid-cols-2 md:grid-cols-1 gap-4"></div>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 
@@ -127,8 +117,6 @@
             preview.innerHTML = '';
             
             if (input.files && input.files.length > 0) {
-                preview.style.display = 'grid';
-                
                 Array.from(input.files).forEach((file, index) => {
                     const reader = new FileReader();
                     reader.onload = function(e) {
@@ -136,8 +124,8 @@
                         div.className = 'relative group';
                         div.innerHTML = `
                             <img src="${e.target.result}" alt="Preview ${index + 1}" 
-                                 class="w-full h-32 object-cover rounded-lg border border-gray-200">
-                            <button type="button" onclick="removeImage(${index})" 
+                                 class="w-full h-48 object-cover rounded-md border border-gray-200">
+                            <button type="button" onclick="removeImage(${index})"
                                     class="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
                                 <i class="fas fa-times text-xs"></i>
                             </button>
@@ -146,21 +134,15 @@
                     };
                     reader.readAsDataURL(file);
                 });
-            } else {
-                preview.style.display = 'none';
             }
         }
 
         function removeImage(index) {
             const input = document.getElementById('images');
             const dt = new DataTransfer();
-            
             Array.from(input.files).forEach((file, i) => {
-                if (i !== index) {
-                    dt.items.add(file);
-                }
+                if (i !== index) dt.items.add(file);
             });
-            
             input.files = dt.files;
             previewImages(input);
         }

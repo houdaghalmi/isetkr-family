@@ -14,14 +14,14 @@
         <div class="max-w-4xl mx-auto">
             <!-- Header -->
             <div class="flex items-center justify-between mb-6">
-                <h1 class="text-2xl font-bold text-purple-700">Event Details</h1>
+                <h1 class="text-2xl font-bold text-[#2d3480]">Event Details</h1>
                 <div class="flex space-x-2">
                     <a href="{{ route('responsible.events.edit', $event->id) }}"
-                        class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                        class="bg-[#2d3480] text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
                         <i class="fas fa-edit mr-2"></i>Edit
                     </a>
                     <a href="{{ route('responsible.events.index') }}"
-                        class="text-purple-600 hover:text-purple-800 px-4 py-2 border border-purple-200 rounded-lg">
+                        class="text-[#2d3480] hover:text-[#3d4490] px-4 py-2 border border-[#2d3480]/30 rounded-lg">
                         <i class="fas fa-arrow-left mr-2"></i>Back
                     </a>
                 </div>
@@ -77,7 +77,7 @@
                             <div class="flex items-start justify-between mb-4">
                                 <h2 class="text-2xl font-bold text-gray-800">{{ $event->title }}</h2>
                                 @if($event->certificated)
-                                <span class="inline-block text-xs px-2 py-1 rounded text-blue-700 font-semibold">
+                                <span class="inline-block text-xs px-2 py-1 rounded text-[#f59e0b] font-semibold border border-[#f59e0b]">
                                     <i class="fas fa-certificate mr-1"></i>Certified
                                 </span>
                                 @endif
@@ -134,7 +134,7 @@
                 <!-- Participants Sidebar -->
                 <div class="lg:col-span-1">
                     <div class="bg-white rounded-lg shadow-md p-6">
-                        <h3 class="text-lg font-semibold text-purple-700 mb-4">
+                        <h3 class="text-lg font-semibold text-[#2d3480] mb-4">
                             Participants ({{ $event->participants->count() }})
                         </h3>
 
@@ -142,15 +142,15 @@
                         <div class="space-y-3">
                             <div class="flex justify-center mb-2">
                                 <a href="{{ route('responsible.events.participants.index', $event->id) }}"
-                                    class="inline-flex items-center px-6 py-1 text-sm font-medium rounded-lg text-purple-700 bg-purple-50 border border-purple-200 hover:bg-purple-200 hover:text-purple-900 transition-colors">
+                                    class="inline-flex items-center px-6 py-1 text-sm font-medium rounded-lg text-white bg-[#f59e0b] hover:bg-[#d97706] transition-colors">
                                     View All Participants
                                 </a>
                             </div>
                             @foreach($event->participants as $participant)
-                            <div class="flex items-center space-x-3 p-3 bg-purple-50 rounded-lg">
+                            <div class="flex items-center space-x-3 p-3 bg-[#2d3480]/5 rounded-lg">
                                 <img src="{{ asset('images/default-avatar.png') }}"
                                     alt="{{ $participant->user->nom ?? 'User' }}"
-                                    class="w-10 h-10 rounded-full border border-purple-200">
+                                    class="w-10 h-10 rounded-full border border-[#3d4490]/30">
                                 <div class="flex-1">
                                     <p class="font-medium text-gray-900">
                                         {{ $participant->user->nom ?? 'Name not available' }}

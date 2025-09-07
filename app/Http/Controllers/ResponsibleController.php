@@ -25,6 +25,37 @@ class ResponsibleController extends Controller
             ->get();
         return view('responsable.clubs.index', compact('clubs'));
     }
+     public function create()
+    {
+        return view('responsable.clubs.create');
+    }
+
+    // Store new club
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:clubs,name',
+            'description' => 'required|string',
+            'objective' => 'nullable|string',
+            'facebook_link' => 'nullable|url|max:255',
+            'instagram_link' => 'nullable|url|max:255',
+            'logo' => 'required|image|mimes:jpeg,png,jpg|max:5120', // max 5MB
+        ]);
+
+        // Handle logo upload
+        if ($request->hasFile('logo')) {
+            $path = $request->file('logo')->store('clubs/logos', 'public');
+            $validated['logo'] = $path;
+        }
+
+        // Assign responsible user
+        $validated['responsible_id'] = Auth::id();
+
+        // Create the club
+        Club::create($validated);
+
+        return redirect()->route('clubs.index')->with('success', 'New club created successfully!');
+    }
 
 public function show($clubId)
 {

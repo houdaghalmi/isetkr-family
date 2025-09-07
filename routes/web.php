@@ -55,6 +55,9 @@ Route::get('/events/upcoming', [DashboardController::class, 'upcomingEvents'])->
 Route::post('/admin/clubs/{club}/validate', [ClubController::class, 'validateClub'])->name('clubs.validate');
 });
 
+
+//student routes
+
 Route::middleware(['auth', 'role:student,club_responsible'])->name('student.')->group(function () {
 Route::get('/student/dashboard', [StudentController::class, 'dashboard'])->name('dashboard');
 
@@ -87,7 +90,7 @@ Route::post('/clubs', [StudentController::class, 'storeClub'])->name('clubs.stor
 
 
 });
-
+ //responsible routes
 Route::middleware(['auth', 'role:club_responsible'])->name('responsible.')->group(function () {
 Route::get('/responsible/dashboard', [ResponsibleController::class, 'dashboard'])->name('dashboard');
 
@@ -95,8 +98,10 @@ Route::get('responsible/clubs', [ResponsibleController::class, 'index'])->name('
     Route::get('responsible/clubs/{club}', [ResponsibleController::class, 'show'])->name('clubs.show');
     Route::get('responsible/clubs/{club}/edit', [ResponsibleController::class, 'edit'])->name('clubs.edit');
     Route::put('/responsible/clubs/{club}', [ResponsibleController::class, 'update'])->name('clubs.update');
+    Route::get('responible/clubs/create', [ResponsibleController::class, 'create'])->name('clubs.create');
+    Route::post('responsible/clubs', [ResponsibleController::class, 'store'])->name('clubs.store');
 
-    Route::post('clubs/{club}/members/{member}/edit', [ResponsibleController::class, 'editMember'])->name('clubs.members.edit');
+    Route::get('clubs/{club}/members/{member}/edit', [ResponsibleController::class, 'editMember'])->name('clubs.members.edit');
     Route::post('clubs/{club}/members/{member}/update', [ResponsibleController::class, 'updateMember'])->name('clubs.members.update');
     Route::post('clubs/{club}/members/{member}/validate', [ResponsibleController::class, 'validateMember'])->name('clubs.members.validate');
     Route::post('clubs/{club}/members/{member}/cancel', [ResponsibleController::class, 'cancelMember'])->name('clubs.members.cancel');

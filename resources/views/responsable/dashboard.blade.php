@@ -21,31 +21,31 @@
                 <!-- Navigation -->
                 <nav class="mt-8 space-y-1 px-4">
                     <a href="/"
-                        class="flex items-center gap-3 text-gray-700 font-medium px-3 py-2 rounded-lg hover:bg-purple-50 hover:text-purple-700 transition">
+                        class="flex items-center gap-3 text-gray-700 font-medium px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition">
                         <i class="fas fa-home w-5 text-#2d3480"></i> Home
                     </a>
                     <a href="{{ route('student.clubs.index') }}"
-                        class="flex items-center gap-3 text-gray-700 font-medium px-3 py-2 rounded-lg hover:bg-purple-50 hover:text-purple-700 transition">
+                        class="flex items-center gap-3 text-gray-700 font-medium px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition">
                         <i class="fas fa-users w-5 text-#2d3480"></i> Clubs
                     </a>
                     <a href="{{ route('responsible.clubs.index') }}"
-                        class="flex items-center gap-3 text-gray-700 font-medium px-3 py-2 rounded-lg hover:bg-purple-50 hover:text-purple-700 transition">
+                        class="flex items-center gap-3 text-gray-700 font-medium px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition">
                         <i class="fas fa-user-cog w-5 text-#2d3480"></i> Manage Clubs
                     </a>
                     <a href="{{ route('student.events.index') }}"
-                        class="flex items-center gap-3 text-gray-700 font-medium px-3 py-2 rounded-lg hover:bg-purple-50 hover:text-purple-700 transition">
+                        class="flex items-center gap-3 text-gray-700 font-medium px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition">
                         <i class="fas fa-calendar-alt w-5 text-#2d3480"></i> Events
                     </a>
                     <a href="{{ route('responsible.events.index') }}"
-                        class="flex items-center gap-3 text-gray-700 font-medium px-3 py-2 rounded-lg hover:bg-purple-50 hover:text-purple-700 transition">
+                        class="flex items-center gap-3 text-gray-700 font-medium px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition">
                         <i class="fas fa-tasks w-5 text-#2d3480"></i> Manage Events
                     </a>
                     <a href="{{ route('student.posts.index') }}"
-                        class="flex items-center gap-3 text-gray-700 font-medium px-3 py-2 rounded-lg hover:bg-purple-50 hover:text-purple-700 transition">
+                        class="flex items-center gap-3 text-gray-700 font-medium px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition">
                         <i class="fas fa-file-alt w-5 text-#2d3480"></i> Posts
                     </a>
                     <a href="{{ route('responsible.posts.index') }}"
-                        class="flex items-center gap-3 text-gray-700 font-medium px-3 py-2 rounded-lg hover:bg-purple-50 hover:text-purple-700 transition">
+                        class="flex items-center gap-3 text-gray-700 font-medium px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition">
                         <i class="fas fa-edit w-5 text-#2d3480"></i> Manage Posts
                     </a>
                 </nav>
@@ -54,7 +54,7 @@
             <div class="px-6 py-6">
                 <div class="flex items-center gap-3">
                     <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('images/default-avatar.png') }}"
-                        class="w-10 h-10 rounded-full object-cover border-2 border-purple-200 shadow-sm" alt="Profile">
+                        class="w-10 h-10 rounded-full object-cover border-2 border-blue-200 shadow-sm" alt="Profile">
                     <div>
                         <div class="font-semibold text-gray-800">{{ auth()->user()->nom }} {{ auth()->user()->prenom }}</div>
                         <div class="text-xs text-gray-500">{{ auth()->user()->email }}</div>
@@ -110,7 +110,7 @@
                                 Created {{ $club->created_at ? \Carbon\Carbon::parse($club->created_at)->format('M Y') : '-' }}
                             </span>
                             <a href="{{ route('responsible.clubs.edit', $club->id) }}"
-                                class="text-sm text-purple-800 hover:text-[#1a216b] font-medium">
+                                class="text-sm text-blue-800 hover:text-[#1a216b] font-medium">
                                 Manage
                             </a>
                         </div>
@@ -163,7 +163,7 @@
                         @endforelse
                     </ul>
                     <div class="mt-4 text-right">
-                        <a href="{{ route('responsible.clubs.index') }}" class="text-sm text-purple-700 hover:underline font-medium">See all members &rarr;</a>
+                        <a href="{{ route('responsible.clubs.index') }}" class="text-sm text-blue-700 hover:text-[#1a216b] font-medium">See all members &rarr;</a>
                     </div>
                 </div>
             </section>

@@ -16,11 +16,11 @@
         <!-- Header -->
         <div class="flex justify-between items-center mb-10">
             <div class="flex items-center gap-4">
-                <h1 class="text-2xl font-bold text-purple-800">My Events</h1>
+                <h1 class="text-2xl font-bold text-[#2d3480]">My Events</h1>
              
             </div>
             <a href="{{ route('responsible.events.create') }}" 
-               class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition">
+               class="bg-[#2d3480] text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
                 <i class="fas fa-plus mr-2"></i>Create Event
             </a>
         </div>
@@ -70,13 +70,13 @@
                             <div class="flex items-center gap-2">
                                 @if($event->status !== 'completed' && $event->status !== 'canceled')
                                     <a href="{{ route('responsible.events.edit', $event->id) }}" 
-                                       class="text-gray-400 hover:text-purple-600 transition"
+                                       class="text-gray-400 hover:text-blue-600 transition"
                                        title="Edit">
                                         <i class="fas fa-pen text-sm"></i>
                                     </a>
                                 @endif
                                 <a href="{{ route('responsible.events.show', $event->id) }}"
-                                   class="text-gray-400 hover:text-purple-600 transition"
+                                   class="text-gray-400 hover:text-blue-600 transition"
                                    title="Show Details">
                                     <i class="fas fa-eye text-sm"></i>
                                 </a>
