@@ -40,7 +40,7 @@ class AuthenticatedSessionController extends Controller
             return redirect()->intended('/student/dashboard');
         } 
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        return redirect()->intended(RouteServiceProvider::getDashboardRoute());
     }
 
     /**

@@ -17,7 +17,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/dashboard';
+    public const HOME = '/';
 
     /**
      * Get the dashboard route based on user role.
@@ -36,7 +36,7 @@ class RouteServiceProvider extends ServiceProvider
                 return '/student/dashboard';
             }
         }
-        return '/dashboard';
+        return '/';
     }
 
     /**

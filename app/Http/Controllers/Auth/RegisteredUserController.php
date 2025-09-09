@@ -57,6 +57,6 @@ class RegisteredUserController extends Controller
             return redirect('/student/dashboard');
         }
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect(RouteServiceProvider::getDashboardRoute());
     }
 }
