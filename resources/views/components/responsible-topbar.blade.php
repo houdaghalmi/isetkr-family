@@ -3,10 +3,6 @@
         <div class="flex justify-between items-center h-16">
             <!-- Navigation Links -->
             <div class="flex space-x-6 mx-auto">
-                <a href="{{ url('/') }}" class="text-white font-semibold relative transition duration-300 hover:text-[#f59e0b] group">
-                    Home
-                    <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-[#f59e0b] transition-all duration-300 group-hover:w-full"></span>
-                </a>
                 <a href="{{ route('responsible.dashboard') }}" class="text-white font-semibold relative transition duration-300 hover:text-[#f59e0b] group">
                     Dashboard
                     <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-[#f59e0b] transition-all duration-300 group-hover:w-full"></span>

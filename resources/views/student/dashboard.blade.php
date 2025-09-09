@@ -24,28 +24,27 @@
 
                 <div class="px-6">
                     <a href="{{ route('student.clubs.create') }}"
-                        class="flex items-center bg-gradient-to-b from-purple-600 to-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-indigo-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                        <i class="fas fa-plus-circle mr-2"></i>
+                        class="flex items-center bg-gradient-to-b from-[#2d3480] to-[#3d4490] text-white px-6 py-3 rounded-lg font-semibold hover:bg-gradient-to-b hover:from-[#222a6d] hover:to-[#323a7a] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"> <i class="fas fa-plus-circle mr-2"></i>
                         Create Your Club
                     </a>
                 </div>
 
                 <!-- Navigation -->
                 <nav class="mt-8 space-y-1 px-4">
-                    <a href="/student/dashboard"
-                        class="flex items-center gap-3 text-gray-700 font-medium px-3 py-2 rounded-lg hover:bg-purple-50 hover:text-purple-700 transition">
-                        <i class="fas fa-home w-5 text-#2d3480"></i> Dashboard
+                    <a href="/"
+                        class="flex items-center gap-3 text-gray-700 font-medium px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition">
+                        <i class="fas fa-home w-5 text-#2d3480"></i> Home
                     </a>
                     <a href="/posts"
-                        class="flex items-center gap-3 text-gray-700 font-medium px-3 py-2 rounded-lg hover:bg-purple-50 hover:text-purple-700 transition">
-                        <i class="fas fa-edit w-5 text-#2d3480"></i> posts
+                        class="flex items-center gap-3 text-gray-700 font-medium px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition">
+                        <i class="fas fa-edit w-5 text-#2d3480"></i> Posts
                     </a>
                     <a href="/events"
-                        class="flex items-center gap-3 text-gray-700 font-medium px-3 py-2 rounded-lg hover:bg-purple-50 hover:text-purple-700 transition">
+                        class="flex items-center gap-3 text-gray-700 font-medium px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition">
                         <i class="fas fa-calendar-alt w-5 text-#2d3480"></i> Events
                     </a>
                     <a href="/clubs"
-                        class="flex items-center gap-3 text-gray-700 font-medium px-3 py-2 rounded-lg hover:bg-purple-50 hover:text-purple-700 transition">
+                        class="flex items-center gap-3 text-gray-700 font-medium px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition">
                         <i class="fas fa-users w-5 text-#2d3480"></i> Clubs
                     </a>
                 </nav>
@@ -128,68 +127,68 @@
 
 
             <!-- Events Section -->
-             
-          <section class="mb-16">
-    <h2 class="text-3xl font-bold text-gray-800 mb-8">My Events</h2>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-6">
-        @foreach($registeredEvents as $event)
-        @if ($event->status==='pending')
-        <div class="bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 p-4 flex gap-6 items-start">
-            <!-- Left side: Event Info -->
-            <div class="flex-1 space-y-4">
-                <div class="flex items-center gap-4">
-                <h3 class="text-xl font-semibold text-gray-900 hover:text-indigo-700 transition">{{ $event->title }}</h3>
-                    @if($event->certificated)
-                    <span class="ml-auto inline-flex items-center gap-1 px-3 py-1 text-xs font-medium bg-green-100 text-green-700 rounded-full">
-                        <i class="fas fa-certificate"></i> Certificated
-                    </span>
-                    @endif
+            <section class="mb-16">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8">My Events</h2>
 
-                </div>
-                <p class="text-sm text-gray-500 line-clamp-2">{{ $event->description }}</p>
-                <p class="text-sm text-gray-500 line-clamp-2">by : {{ $event->intervenant }}</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-6">
+                    @foreach($registeredEvents as $event)
+                    @if ($event->status==='pending')
+                    <div class="bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 p-4 flex gap-6 items-start">
+                        <!-- Left side: Event Info -->
+                        <div class="flex-1 space-y-4">
+                            <div class="flex items-center gap-4">
+                                <h3 class="text-xl font-semibold text-gray-900 hover:text-indigo-700 transition">{{ $event->title }}</h3>
+                                @if($event->certificated)
+                                <span class="ml-auto inline-flex items-center gap-1 px-3 py-1 text-xs font-medium bg-green-100 text-green-700 rounded-full">
+                                    <i class="fas fa-certificate"></i> Certificated
+                                </span>
+                                @endif
 
-
+                            </div>
+                            <p class="text-sm text-gray-500 line-clamp-2">{{ $event->description }}</p>
+                            <p class="text-sm text-gray-500 line-clamp-2">by : {{ $event->intervenant }}</p>
 
 
-                <div class="text-sm text-gray-600 space-y-1">
-                    <div class="flex items-center gap-2">
-                        <i class="fas fa-calendar-alt text-#2d3480"></i>
-                        {{ $event->datetime->format('d/m/Y H:i') }}
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <i class="fas fa-map-marker-alt text-#2d3480"></i>
-                        {{ $event->location ?? 'N/A' }}
-                    </div>
-                     <div>
-                        <div class="text-sm text-gray-600 flex items-center gap-1">
-                            <i class="fas fa-users text-#2d3480"></i> Participants :<span >{{ $event->participants_count ?? 0 }}</span>
+
+
+                            <div class="text-sm text-gray-600 space-y-1">
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-calendar-alt text-#2d3480"></i>
+                                    {{ $event->datetime->format('d/m/Y H:i') }}
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-map-marker-alt text-#2d3480"></i>
+                                    {{ $event->location ?? 'N/A' }}
+                                </div>
+                                <div>
+                                    <div class="text-sm text-gray-600 flex items-center gap-1">
+                                        <i class="fas fa-users text-#2d3480"></i> Participants :<span>{{ $event->participants_count ?? 0 }}</span>
+
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-2 ">
+                                    <img src="{{ $event->club->logo ? asset('storage/' . $event->club->logo) : asset('images/default-avatar.png') }}"
+                                        alt="Club Logo"
+                                        class="w-10 h-10 rounded-full object-cover border border-gray-300" />
+                                    <span>{{ $event->club->name }}</span>
+                                </div>
+                            </div>
 
                         </div>
+
+                        <!-- Right side: Poster -->
+                        @if($event->poster)
+                        <div class="w-50 h-60 flex-shrink-0 rounded-xl overflow-hidden border border-gray-200 shadow-sm">
+                            <img src="{{ asset('storage/' . $event->poster) }}" alt="Event Poster"
+                                class="w-full h-full object-cover rounded-xl" />
+                        </div>
+                        @endif
                     </div>
-                    <div class="flex items-center gap-2 ">
-                        <img src="{{ $event->club->logo ? asset('storage/' . $event->club->logo) : asset('images/default-avatar.png') }}"
-                             alt="Club Logo"
-                             class="w-10 h-10 rounded-full object-cover border border-gray-300" />
-                        <span>{{ $event->club->name }}</span>
-                    </div>
+                    @endif
+                    @endforeach
                 </div>
-
-            </div>
-
-            <!-- Right side: Poster -->
-            @if($event->poster)
-            <div class="w-50 h-60 flex-shrink-0 rounded-xl overflow-hidden border border-gray-200 shadow-sm">
-                <img src="{{ asset('storage/' . $event->poster) }}" alt="Event Poster"
-                     class="w-full h-full object-cover rounded-xl" />
-            </div>
-            @endif
-        </div>
-        @endif
-        @endforeach
-    </div>
-</section>
+            </section>
 
         </main>
 
