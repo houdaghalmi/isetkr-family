@@ -123,11 +123,11 @@
                 </div>
             @empty
                 <div class="col-span-full text-center py-12">
-                    <i class="fas fa-calendar-times text-4xl text-purple-400 mb-4"></i>
+                    <i class="fas fa-calendar-times text-4xl text-blue-400 mb-4"></i>
                     <h3 class="text-lg font-medium text-gray-600 mb-2">No Events Found</h3>
                     <p class="text-gray-500">You have not created any events yet, or all events have been canceled.</p>
                     <a href="{{ route('responsible.events.create') }}" 
-                       class="inline-block mt-4 bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition">
+                       class="inline-block mt-4 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">
                         <i class="fas fa-plus mr-2"></i>Create Your First Event
                     </a>
                 </div>

@@ -21,7 +21,6 @@ class ResponsibleController extends Controller
             ->withCount('members')
             ->withCount('events')
             ->withCount('posts')
-
             ->get();
         return view('responsable.clubs.index', compact('clubs'));
     }
@@ -176,6 +175,8 @@ public function dashboard()
     // Clubs the user is responsible for
     $responsibleClubs = Club::where('responsable_user_id', $user->id)
         ->withCount('members')
+         ->withCount('events')
+        ->withCount('posts')
         ->get();
 
     // Recent members only in clubs you manage

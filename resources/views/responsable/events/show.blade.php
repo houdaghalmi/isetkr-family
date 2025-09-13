@@ -133,7 +133,7 @@
 
                 <!-- Participants Sidebar -->
                 <div class="lg:col-span-1">
-                    <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="bg-white rounded-lg shadow-md p-6 w-full lg:w-96">
                         <h3 class="text-lg font-semibold text-[#2d3480] mb-4">
                             Participants ({{ $event->participants->count() }})
                         </h3>
@@ -153,7 +153,7 @@
                                     class="w-10 h-10 rounded-full border border-[#3d4490]/30">
                                 <div class="flex-1">
                                     <p class="font-medium text-gray-900">
-                                        {{ $participant->user->nom ?? 'Name not available' }}
+                                        {{ $participant->user->prenom }} {{ $participant->user->nom }}
                                     </p>
                                     <p class="text-sm text-gray-500">
                                         {{ $participant->user->email ?? 'Email not available' }}
